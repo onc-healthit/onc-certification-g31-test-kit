@@ -18,8 +18,8 @@ This test kit validates conformance to the following implementation specificatio
 
 ## Using this Test Kit
 
-*   [Getting Started](https://github.com/drajer-health/onc-certification-g31-test-kit#getting-started:~:text=Inferno%20Framework.-,Getting%20Started,-Install%20Ruby%203.3): Installation instructions for setting up and running this test kit locally.
-*   [Test Kit Walkthrough](https://github.com/drajer-health/onc-certification-g31-test-kit/wiki/Walkthrough): A step-by-step guide to using this test kit, including screenshots and detailed instructions for each testing scenario.
+*   [Getting Started](https://github.com/onc-healthit/onc-certification-g31-test-kit#getting-started:~:text=Inferno%20Framework.-,Getting%20Started,-Install%20Ruby%203.3): Installation instructions for setting up and running this test kit locally.
+*   [Test Kit Walkthrough](https://github.com/onc-healthit/onc-certification-g31-test-kit/wiki/Walkthrough): A step-by-step guide to using this test kit, including screenshots and detailed instructions for each testing scenario.
 
 ## Contributing to this Test Kit
 

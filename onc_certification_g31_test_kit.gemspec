@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   # spec.email         = ['TODO']
   spec.summary       = 'ONC Certification (g)(31) Test Kit'
   spec.description   = 'ONC Certification (g)(31) Standardized API Test Kit'
-  spec.homepage      = 'https://github.com/drajer-health/onc-certification-g31-test-kit'
+  spec.homepage      = 'https://github.com/onc-healthit/onc-certification-g31-test-kit'
   spec.license       = 'Apache-2.0'
   spec.add_dependency 'davinci_crd_test_kit', '~> 0.14', '>= 0.14.1'
   spec.add_dependency 'inferno_core', '~> 1.4', '>= 1.4.3'
