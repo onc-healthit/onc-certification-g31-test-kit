@@ -1,0 +1,1 @@
+require_relative 'onc_certification_g31_test_kit/g31_certification_suite'
