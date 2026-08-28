@@ -103,28 +103,27 @@ RSpec.describe ONCCertificationG31TestKit::G31CertificationSuite do
     let(:option) { suite.suite_options.find { |suite_option| suite_option.id == :us_core_version } }
     let(:fhir_api_group) { suite.groups.find { |group| group.title == 'FHIR API' } }
 
-    it 'offers only the two versions (g)(31) certifies against' do
+    it 'offers the versions (g)(31) certifies against' do
       expect(option.list_options.map { |list_option| list_option[:value] }).to eq(
-        [ONCCertificationG31TestKit::G31Options::US_CORE_6, ONCCertificationG31TestKit::G31Options::US_CORE_7]
+        [ONCCertificationG31TestKit::G31Options::US_CORE_3, ONCCertificationG31TestKit::G31Options::US_CORE_6,
+         ONCCertificationG31TestKit::G31Options::US_CORE_7]
       )
     end
 
     it 'selects the matching US Core group for each version' do
-      selected = ['us_core_6', 'us_core_7'].map do |value|
+      selected = ['us_core_3', 'us_core_6', 'us_core_7'].map do |value|
         fhir_api_group.children(us_core_option(value)).map { |group| group.id.split('-').last }
       end
 
-      expect(selected).to eq([['us_core_v610_fhir_api'], ['us_core_v700_fhir_api']])
+      expect(selected).to eq([['us_core_v311_fhir_api'], ['us_core_v610_fhir_api'], ['us_core_v700_fhir_api']])
     end
 
-    # US Core 3.1.1 has to be required for the CRD FHIR API group to load, but it should never
-    # reach a session because this suite does not offer the us_core_3 option.
-    it 'never reaches US Core 3.1.1 under either offered version' do
-      reachable = ['us_core_6', 'us_core_7'].flat_map do |value|
-        fhir_api_group.children(us_core_option(value)).map(&:id)
-      end
+    it 'reaches exactly one US Core group under each offered version' do
+      ['us_core_3', 'us_core_6', 'us_core_7'].each do |value|
+        selected = fhir_api_group.children(us_core_option(value))
 
-      expect(reachable).to all(exclude('v311'))
+        expect(selected.length).to eq(1), "#{value} selected #{selected.length} groups"
+      end
     end
   end
 end
