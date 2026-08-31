@@ -88,6 +88,10 @@ module ONCCertificationG31TestKit
                  title: 'US Core Version',
                  list_options: [
                    {
+                     label: 'US Core 3.1.1',
+                     value: G31Options::US_CORE_3
+                   },
+                   {
                      label: 'US Core 6.1.0',
                      value: G31Options::US_CORE_6
                    },
@@ -105,6 +109,9 @@ module ONCCertificationG31TestKit
       /CDSHooksRequest.extension: Unrecognized property/,
       /No definition could be found for URL value/
     ].freeze
+
+    US_CORE_3_MESSAGE_FILTERS = CRD_MESSAGE_FILTERS +
+                                USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
 
     US_CORE_6_MESSAGE_FILTERS = CRD_MESSAGE_FILTERS +
                                 USCoreTestKit::USCoreV610::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
@@ -148,6 +155,14 @@ module ONCCertificationG31TestKit
         requirements: 'referenced'
       },
       {
+        identifier: 'hl7.fhir.us.core_3.1.1',
+        title: 'US Core Implementation Guide v3.1.1',
+        actor: 'Server',
+        suite_options: {
+          us_core_version: G31Options::US_CORE_3
+        }
+      },
+      {
         identifier: 'hl7.fhir.us.core_6.1.0',
         title: 'US Core Implementation Guide v6.1.0',
         actor: 'Server',
@@ -164,6 +179,21 @@ module ONCCertificationG31TestKit
         }
       }
     )
+
+    fhir_resource_validator required_suite_options: G31Options::US_CORE_3_REQUIREMENT do
+      igs(G31Options::CRD_V221_IG_PACKAGE)
+
+      validation_context do
+        snomedCT '731000124108'
+        txServer ENV.fetch('G31_TERMINOLOGY_SERVER', 'https://tx.fhir.org/r4')
+        displayWarnings true
+      end
+
+      exclude_message do |message|
+        ['info', 'warning'].include?(message.type) ||
+          US_CORE_3_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
+      end
+    end
 
     fhir_resource_validator required_suite_options: G31Options::US_CORE_6_REQUIREMENT do
       igs(G31Options::CRD_V221_IG_PACKAGE)
