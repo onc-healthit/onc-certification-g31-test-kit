@@ -1,2 +1,2 @@
-# 0.0.0
-* Initial project scaffolding for the ONC Certification (g)(31) Standardized API Test Kit.
+# 0.9.0
+* Initial project scaffolding for the ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit.
