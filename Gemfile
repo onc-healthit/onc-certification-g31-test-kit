@@ -9,7 +9,7 @@ gemspec
 # so it is only reachable from git. This kit cannot be published to rubygems until then
 gem 'davinci_crd_test_kit',
     git: 'https://github.com/inferno-framework/davinci-crd-test-kit.git',
-    branch: 'main'
+    branch: 'id-226-br-provider-preset'
 gem 'us_core_test_kit', git: 'https://github.com/inferno-framework/us-core-test-kit.git',
     branch: 'ID-225-fix-610-message-filters'
 

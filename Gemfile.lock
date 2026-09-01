@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/inferno-framework/davinci-crd-test-kit.git
-  revision: 681694188149c2cd36e76c309f137d62acef0839
-  branch: main
+  revision: dd06288efe7a309629db5980187290727126ca31
+  branch: id-226-br-provider-preset
   specs:
     davinci_crd_test_kit (0.14.1)
-      inferno_core (~> 1.4, >= 1.4.2)
+      inferno_core (~> 1.4, >= 1.4.3)
       jwt (~> 3.2)
       smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
       tls_test_kit (~> 1.0)
