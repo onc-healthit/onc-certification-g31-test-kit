@@ -325,8 +325,8 @@ module ONCCertificationG31TestKit
           )
         end
 
+        group from: :crd_v221_client_scenarios, exclude_optional: true
         group from: :crd_v221_client_cross_hook, exclude_optional: true
-        group from: :crd_v221_client_long_running_hook, exclude_optional: true
       end
     )
 
