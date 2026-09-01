@@ -22,7 +22,7 @@ RSpec.describe ONCCertificationG31TestKit::G31CDSServicesDiscoveryHandler do
 
   def order_sign_service(version, prefetch_subset: false)
     JSON.parse(crd_handler.cds_services(version, prefetch_subset:))['services']
-        .find { |service| service['hook'] == 'order-sign' }
+      .find { |service| service['hook'] == 'order-sign' }
   end
 
   describe 'the discovery endpoint' do
