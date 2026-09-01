@@ -16,18 +16,27 @@ RSpec.describe ONCCertificationG31TestKit::G31CDSServicesDiscoveryHandler do
     discovery_handler.call({ 'PATH_INFO' => path })[2].first
   end
 
+  def discovery_services(path)
+    JSON.parse(discovery_body(path))['services']
+  end
+
+  def order_sign_service(version, prefetch_subset: false)
+    JSON.parse(crd_handler.cds_services(version, prefetch_subset:))['services']
+        .find { |service| service['hook'] == 'order-sign' }
+  end
+
   describe 'the discovery endpoint' do
-    it 'serves the CRD v2.2.1 service definitions' do
-      expect(discovery_body(discovery_path)).to eq(crd_handler.cds_services('v2.2.1'))
+    it 'serves only the order-sign service from the CRD v2.2.1 service definitions' do
+      expect(discovery_services(discovery_path)).to eq([order_sign_service('v2.2.1')])
     end
 
-    it 'does not fall back to the CRD v2.0.1 service definitions' do
-      expect(discovery_body(discovery_path)).to_not eq(crd_handler.cds_services('v2.0.1'))
+    it 'does not fall back to the CRD v2.0.1 order-sign service definition' do
+      expect(discovery_services(discovery_path)).to_not eq([order_sign_service('v2.0.1')])
     end
 
-    it 'serves the v2.2.1 prefetch subset definitions on the subset path' do
-      expect(discovery_body(prefetch_subset_path))
-        .to eq(crd_handler.cds_services('v2.2.1', prefetch_subset: true))
+    it 'serves only the v2.2.1 order-sign service on the prefetch subset path' do
+      expect(discovery_services(prefetch_subset_path))
+        .to eq([order_sign_service('v2.2.1', prefetch_subset: true)])
     end
 
     it 'responds as json with CORS allowed' do
