@@ -8,7 +8,7 @@ conformance to the (g)(31) certification criterion.
 
 This test kit evaluates a **Health IT Module**, specifically a provider system
 in which orders can be placed and signed. Each step of this walkthrough includes
-demonstration execution details using the the [ONC-hosted instance](https://inferno.healthit.gov/suites/g31_certification)
+demonstration execution details using the [ONC-hosted instance](https://inferno.healthit.gov/suites/g31_certification)
 to evaluate the behavior of the 
 [publicly available Da Vinci burden reduction BR Provider reference implementation](https://br-provider.davinci.hl7.org/),
 showing the kinds of actions that a tester would take within their Health IT Module
@@ -153,7 +153,7 @@ Health IT Module invokes it correctly and handles Inferno's response.
 
 The group is organized into four sub-groups:
 
-*   **1.2.1.1 Interaction** - During these tests, Infero will wait for the hook requests from the
+*   **1.2.1.1 Interaction** - During these tests, Inferno will wait for the hook requests from the
     Health IT Module.
 *   **1.2.1.2 Authorization** - Verifies the signed jwt used to authenticate the hook request.
 *   **1.2.1.3 Requests** - Validates the structure and content of each request.
@@ -162,7 +162,7 @@ The group is organized into four sub-groups:
     that the Health IT Module displayed information related to the Coverage Information
     response type appropriately as Inferno cannot automatically verify that display behavior.
 
-After execution is complete, each test contain in-depth information to help debug failures. Click
+After execution is complete, each test contains in-depth information to help debug failures. Click
 on the name of an individual test to access these details on the following tabs when relevant:
 - **Messages**: A list of specific errors and messages that provide detail on reason for the outcome.
 - **Requests**: Details on the requests that Inferno is evaluating during this test.
@@ -186,14 +186,14 @@ on the name of an individual test to access these details on the following tabs 
    indicating Inferno is ready to receive requests, return to the tab with the reference
    implementation.
 1. Click the "Sign all Orders" button at the bottom of the chart frame (scroll down). On the
-   next screen, click the the "Confirm & Sign" button. This will trigger hook requests and
+   next screen, click the "Confirm & Sign" button. This will trigger hook requests and
    within a few seconds, you should see updated cards displayed in the frame at the right.
 1. In the Inferno tab, click the link in the dialog to continue the tests. Inferno will take
    a few moments to analyze the interactions and check them for conformance. After it has done
    so, a new dialog will appear asking the tester to confirm that the returned responses
    were displayed or otherwise made available to the user appropriately, including
    a instructions card, a external reference card, and the coverage-information system action.
-   Determining the right response is a judgement call, but return to the br-provider tab
+   Determining the right response is a judgment call, but return to the br-provider tab
    and decide what you see and make the corresponding attestation in Inferno. At the time of
    this writing, the two cards were clearly displayed, and the details from the coverage-information
    system action (e.g., "covered" indication) were displayed with the list of linked orders.
@@ -237,7 +237,7 @@ steps:
    Request Pause Time** input to `10`. When the dialog appears indicating Inferno is ready
    to receive requests, return to the tab with the reference implementation.
 1. Click the "Sign all Orders" button at the bottom of the chart frame (scroll down). On the
-   next screen, click the the "Confirm & Sign" button. This will trigger a hook request and
+   next screen, click the "Confirm & Sign" button. This will trigger a hook request and
    Inferno will pause for 10s before responding. Attempt to click around within the UI
    to do something useful, e.g., place another order, without disrupting the display of the
    response.
@@ -248,7 +248,7 @@ steps:
 
 ## Step 6: Perform Cross Hook tests
 
-These tests examine the hook requests made by the Health IT Modul against Inferno to ensure that
+These tests examine the hook requests made by the Health IT Module against Inferno to ensure that
 behaviors required across all hook requests but not necessarily on each are demonstrated.
 If testers didn't demonstrate all of these behaviors during the previous `order-sign` tests,
 they have the opportunity to perform additional interactions. Note that only requests sent
@@ -265,7 +265,7 @@ group to fall out of scope.
     attest to their correct display in the Health IT Module.
 *   Once any additional tests have been made, Inferno will check them in aggregate against
     the cross-hook criteria, e.g., the demonstrated ability to fulfill both the complete
-    standard prefetch data set and a subste, which requires that the Health IT Module has
+    standard prefetch data set and a subset, which requires that the Health IT Module has
     submitted requests against both of Inferno's service discovery endpoints described in
     step 2.
 

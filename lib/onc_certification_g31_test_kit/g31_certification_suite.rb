@@ -302,7 +302,7 @@ module ONCCertificationG31TestKit
 
         group from: :crd_v221_client_hooks do
           description %(
-            This group contain a sub-group which verifies the ability of the client to make and
+            This group contains a sub-group which verifies the ability of the client to make and
             react to responses from the order-sign required by the
             [Coverage Requirements Discovery criterion § 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
             * [order-sign](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/hooks.html#order-sign)
@@ -319,7 +319,7 @@ module ONCCertificationG31TestKit
             - Discovery endpoint for services requesting the complete [standard prefetch data set](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/foundation.html#standard-prefetch):
               `#{DaVinciCRDTestKit::V221::ClientURLs.discovery_url}`
               * `order-sign` service id: `order-sign-service`
-            - Discovery endpoint for services requesting the a subset of the [standard prefetch data set](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/foundation.html#standard-prefetch):
+            - Discovery endpoint for services requesting a subset of the [standard prefetch data set](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/foundation.html#standard-prefetch):
               `#{DaVinciCRDTestKit::V221::ClientURLs.prefetch_subset_discovery_url}`
               * `order-sign` service id: `order-sign-subset`
           )

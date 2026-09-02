@@ -137,7 +137,7 @@ end-to-end testing:
   v2.2.1 Test Suite", and clicking "Start Testing".
   1. Select the "Run Against the (g)(31) Suite" preset.
   1. Run group "1 Discovery" and confirm that all pass (NOTE: if running locally
-  wihtout TLS setup, test "1.01 CRD server uses TLS 1.2 or higher" is expected
+  without TLS setup, test "1.01 CRD server uses TLS 1.2 or higher" is expected
   to fail).
   1. In another tab, create a (g)(31) session by navigating to `<inferno-base>/onc_certification_g31`,
   (e.g. http://localhost:4567/onc_certification_g31), selecting any version of
