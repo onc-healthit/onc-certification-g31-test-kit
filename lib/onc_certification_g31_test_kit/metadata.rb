@@ -18,7 +18,7 @@ module ONCCertificationG31TestKit
 
       ## Status
 
-      The ONC Certification (g)(31) overage Requirements Discovery API Test Kit is actively
+      The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is actively
       developed and updates are released monthly.
 
       The test kit currently tests requirements for the [Coverage Requirements
