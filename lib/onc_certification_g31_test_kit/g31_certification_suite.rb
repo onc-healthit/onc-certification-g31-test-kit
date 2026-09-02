@@ -284,7 +284,7 @@ module ONCCertificationG31TestKit
           During these tests, Inferno will simulate a CRD server for the Health IT Module
           to interact with. The Health IT Module must
           1. Register with both of Inferno's simulated CRD servers.
-          2. Discover the capbilities of Inferno's CDS services.
+          2. Discover the capabilities of Inferno's CDS services.
           3. Make order-sign hook requests demonstrating conformance to CRD client
              requirements across a variety of scenarios.
 

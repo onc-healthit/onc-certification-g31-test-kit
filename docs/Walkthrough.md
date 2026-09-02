@@ -22,7 +22,7 @@ Because Inferno is waiting to be called, most scenarios pause on a 'User Action 
 dialog. Inferno will only respond to hook requests when one of these dialog is active.
 Once it is active the tester takes actions within the Health IT Module that trigger
 the relevant hook requests and acknowledges within the Inferno UI once all
-requests have been sent so that Inferno knowns to start evaluating them.
+requests have been sent so that Inferno knows to start evaluating them.
 
 NOTE: If multiple people are running this demonstration at the same time, unexpected results
 may occur. If you see strange behavior, pause execution and try again later.
@@ -142,9 +142,9 @@ Health IT Module invokes it correctly and handles Inferno's response.
     * NOTE: Inferno will only respond to a hook request when it is in this waiting state AND
       it receives a hook request where the jwt in the Authorization header has the value from
       the **CRD JWT Issuer** input in its `iss` payload field. If Inferno is not in a waiting
-      state or the `iss` is missing of has a different value, the request will not return
+      state or the `iss` is missing or has a different value, the request will not return
       a successful response or be associated with the session for conformance analysis.
-*   When the Health IT Module has sent its requests and recieved responses back from Inferno,
+*   When the Health IT Module has sent its requests and received responses back from Inferno,
     click the link in the dialog to continue.
 *   After Inferno evaluates the interactions and checks them for conformance, a second
     'User Action Required' dialog will ask you to attest that the Health IT Module displayed
