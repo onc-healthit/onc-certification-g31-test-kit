@@ -302,7 +302,6 @@ available over the Health IT Module's FHIR API.
         can manually provide a new access token, and client Id plus refresh token if needed to refresh
         the token if it expires. If you do so, you attest that the manually-provided token has the
         same scope and access as those sent in the hook requests.
-        in the CRD Test Kit wiki for additional detail.
     *   **Patient IDs**: one or more patient records that together include at least one example of
         every element labelled 'MUST SUPPORT' in the relevant US Core profiles.
     *   **Implantable device codes**: optional filter for Device resources.
