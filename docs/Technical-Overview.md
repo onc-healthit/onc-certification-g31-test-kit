@@ -78,7 +78,7 @@ The specific test kits that are imported into this test kit include:
 
 ## Test Kit Code Organization
 
-The (g)(10) Test Kit follows general Ruby conventions for applications and
+The (g)(31) Test Kit follows general Ruby conventions for applications and
 libraries. It is organized into several main directories:
 
 - `.github`: Contains workflows for integrating with GitHub's automated tools
@@ -87,7 +87,7 @@ libraries. It is organized into several main directories:
 - `docs`: Contains documentation for this test kit.
 - `execution_scripts`: Contains integrated testing scripts.
 - `lib`: Contains the main logic for the test kit, including the test cases and helper functions.
-- `lib/onc_certification_g131test_kit`: Contains the main tests for the test kit
+- `lib/onc_certification_g31_test_kit`: Contains the main tests for the test kit
 - `spec`: Contains the RSpec test cases for the test kit.
 - `tmp`: Temporary files used by the test kit at runtime.
 

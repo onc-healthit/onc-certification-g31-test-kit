@@ -73,7 +73,7 @@ module ONCCertificationG31TestKit
     ]
 
     # Allow the tester to select which US Core version to test against when
-    # launching the suite, the same way the (g)(10) test kit does.
+    # launching the suite
     suite_option :us_core_version,
                  title: 'US Core Version',
                  list_options: [
