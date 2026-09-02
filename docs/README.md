@@ -28,6 +28,7 @@ Inferno Framework test suites](https://inferno-framework.github.io/docs/writing-
 The following guides provide additional information about the design
 and implementation of this test kit to aid in contributing to these tests:
 
+*   [Technical Overview](Technical-Overview)
 *   [Da Vinci CRD Test Kit Wiki](https://github.com/inferno-framework/davinci-crd-test-kit/wiki): Documentation for the CRD client tests that this test kit imports, including how Inferno simulates a CRD server and how its responses can be controlled.
 *   [Controlling Simulated Responses](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Controlling-Simulated-Responses): How Inferno builds the CDS Hooks responses returned to the client under test, and how those responses can be customized.
 

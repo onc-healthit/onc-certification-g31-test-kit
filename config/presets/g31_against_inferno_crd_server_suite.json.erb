@@ -1,0 +1,24 @@
+{
+  "title": "Run Against the CRD Server Suite",
+  "id": "g31-against-inferno-crd-server-suite-v221",
+  "test_suite_id": "g31_certification",
+  "inputs": [
+    {
+      "name": "cds_jwt_iss",
+      "title": "URI of the issuer of the JWT used to authorize CDS Hooks calls",
+      "type": "text",
+      "value": "<%= Inferno::Application['base_url'] %>/custom/crd_server_v221"
+    },
+    {
+      "name": "cds_jwk_set",
+      "type": "textarea",
+      "value": "<%= Inferno::Application['base_url'] %>/custom/crd_server_v221/jwks.json"
+    },
+    {
+      "name": "complete_prefetch_service_organization_id",
+      "title": "Complete Prefetch Service Organization id",
+      "type": "text",
+      "value": "crd221-demo-payer-complete-prefetch"
+    }
+  ]
+}
