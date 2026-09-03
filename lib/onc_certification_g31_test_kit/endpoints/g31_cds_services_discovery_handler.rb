@@ -5,12 +5,16 @@ module ONCCertificationG31TestKit
   class G31CDSServicesDiscoveryHandler < DaVinciCRDTestKit::CDSServicesDiscoveryHandler
     def self.cds_services(version = 'v2.0.1', prefetch_subset: false)
       key = "#{version}_#{prefetch_subset}"
-      cds_services_array[key] ||= begin
+      filtered_cds_services_array[key] ||= begin
         services = JSON.parse(super)
         services['services'].select! { |service| service['hook'] == DaVinciCRDTestKit::ORDER_SIGN_TAG }
 
         services.to_json
       end
+    end
+
+    def self.filtered_cds_services_array
+      @filtered_cds_services_array ||= {}
     end
 
     def call(env)
