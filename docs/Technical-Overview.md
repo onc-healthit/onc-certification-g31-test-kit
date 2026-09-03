@@ -9,8 +9,7 @@ This document does not provide detailed instructions on how to use
 an Inferno test kit, the contents of the (g)(31) Certification Criteria,
 basics of the Inferno Framework, or details on how to use Ruby, Docker,
 or other tools. Developers are expected to have at least a basic understanding
-of all these topics. Please refer to the References section of this document
-for links to more information about these topics.
+of all these topics.
 
 Please note that the focus of this document is on features that are specific to
 this test kit and it does not provide a detailed explanation of common Inferno
@@ -132,7 +131,7 @@ end-to-end testing:
   suite's order-sign interaction and validation against the Inferno CRD
   Server v2.2.1 Suite, including in a local environment, perform the
   following steps:
-  1. Create a CRD Server v2.2.1 session by navigating to `<inferno-base>/davinci-crd` 
+  1. Create a CRD Server v2.2.1 session by navigating to `<inferno-base>/davinci_crd` 
   (e.g. http://localhost:4567/davinci_crd), selecting "Da Vinci CRD Server
   v2.2.1 Test Suite", and clicking "Start Testing".
   1. Select the "Run Against the (g)(31) Suite" preset.

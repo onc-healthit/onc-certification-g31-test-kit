@@ -83,7 +83,7 @@ offers, including `order-sign-service`.
 
 ### Reference implementation configuration example
 
-To configure the Da Vinci br-provider reference implementation to connect to Inferno:
+To configure the Da Vinci BR Provider reference implementation to connect to Inferno:
 1. In a separate tab, navigate to https://br-provider.davinci.hl7.org/ and login (no password
    needed) as a practitioner (any).
 1. Configure the connection to Inferno's simulated CRD server by:
@@ -116,7 +116,7 @@ These values are carried forward and locked in the later hook groups, so you onl
 ### Reference implementation registration example
 
 The input values to register the br-provider reference implementation can be pulled in
-by applying the "Da Vinci Burden Reduction Reference Implementation" preset before
+by applying the "Da Vinci BR Provider Reference Implementation" preset before
 running the "Registration" group.
 
 ## Step 4: Perform order-sign Hook tests
@@ -155,12 +155,13 @@ The group is organized into four sub-groups:
 
 *   **1.2.1.1 Interaction** - During these tests, Inferno will wait for the hook requests from the
     Health IT Module.
-*   **1.2.1.2 Authorization** - Verifies the signed jwt used to authenticate the hook request.
-*   **1.2.1.3 Requests** - Validates the structure and content of each request.
-*   **1.2.1.4 Response Handling** - Validates the structure and content of Inferno's simulated responses,
+*   **1.2.1.2 Response Handling** - Validates the structure and content of Inferno's simulated responses,
     which must themselves be conformant and not include custom extensions. Testers also confirm
     that the Health IT Module displayed information related to the Coverage Information
     response type appropriately as Inferno cannot automatically verify that display behavior.
+*   **1.2.1.3 Requests** - Validates the structure and content of each request.
+*   **1.2.1.4 Authorization** - Verifies the signed jwt used to authenticate the hook request.
+
 
 After execution is complete, each test contains in-depth information to help debug failures. Click
 on the name of an individual test to access these details on the following tabs when relevant:
