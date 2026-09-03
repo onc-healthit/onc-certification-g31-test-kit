@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/inferno-framework/davinci-crd-test-kit.git
-  revision: 7d14ced855f0e9f531daa18b79bb05faa67757e7
-  branch: id-226-br-provider-preset
+  revision: a0f0a62df6df7e40801df1996423034f284889bb
+  branch: main
   specs:
     davinci_crd_test_kit (0.14.1)
       inferno_core (~> 1.4, >= 1.4.3)
@@ -12,10 +12,10 @@ GIT
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: c2f4f6aff534e1eb23f6b028ec0bd00779d63c01
-  branch: ID-225-fix-610-message-filters
+  revision: c8701563d36c2a9eaedc976c59fd8dca4303f49a
+  branch: main
   specs:
-    us_core_test_kit (1.1.5)
+    us_core_test_kit (1.1.6)
       inferno_core (~> 1.4, >= 1.4.3)
       smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
       tls_test_kit (~> 1.0, >= 1.0.2)
@@ -607,7 +607,7 @@ CHECKSUMS
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   unicode-display_width (2.6.0) sha256=12279874bba6d5e4d2728cef814b19197dbb10d7a7837a869bab65da943b7f5a
   unicode_utils (1.4.0) sha256=b922d0cf2313b6b7136ada6645ce7154ffc86418ca07d53b058efe9eb72f2a40
-  us_core_test_kit (1.1.5)
+  us_core_test_kit (1.1.6)
   version_gem (1.1.15) sha256=a73241587b29252e3567e0c818ded80730eb754d43b508f6ce4db22ca9ba27d0
   webmock (3.26.4) sha256=8d8da206d217ebe6968cfb09c77f4533c23074e1432bad865f3994eacbaad50d
   zeitwerk (2.8.3) sha256=2c85125a8467ce069e20123d1e709a08955c9d29c118c25b46b7b7fafdbb92e5
