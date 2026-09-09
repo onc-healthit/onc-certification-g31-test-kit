@@ -11,7 +11,7 @@
 /tmp/
 **/~$*.xlsx
 
-# Runtime data directory (mirrors the (g)(10) test kit)
+# Runtime data directory
 /data/*.db*
 /data/*.db-journal
 /data/redis/*.rdb

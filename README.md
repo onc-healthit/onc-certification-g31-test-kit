@@ -1,6 +1,6 @@
 # onc-certification-g31-test-kit
 
-The ONC Certification (g)(31) Standardized API Test Kit is a testing tool for
+The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is a testing tool for
 Health IT systems seeking to meet the requirements of the § 170.315(g)(31)
 certification criterion in the ONC Health IT Certification Program.
 
@@ -15,6 +15,7 @@ Framework](https://inferno-framework.github.io/).
   and the [`bundler` gem](https://bundler.io/).
 - Run `bundle install` to install dependencies.
 - Run `bundle exec inferno migrate` to set up the database.
+- Run `bundle exec inferno services start` to start the background services.
 - Run `bundle exec inferno start` to start the server.
 - Navigate to `http://localhost:4567` to access the test kit.
 

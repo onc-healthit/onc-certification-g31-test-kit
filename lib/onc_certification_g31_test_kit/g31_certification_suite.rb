@@ -9,44 +9,34 @@ require_relative 'endpoints/g31_hook_request_endpoint'
 module ONCCertificationG31TestKit
   class G31CertificationSuite < Inferno::TestSuite
     id :g31_certification
-    title 'ONC Certification (g)(31) Standardized API'
-    short_title '(g)(31) Standardized API'
+    title 'ONC Certification (g)(31) Coverage Requirements Discovery API'
+    short_title '(g)(31) CRD API'
     description %(
-      The ONC Certification (g)(31) Standardized API Test Suite is a testing tool
-      for Health Level 7 (HL7®) Fast Healthcare Interoperability Resources
-      (FHIR®) clients seeking to meet the requirements of the [Coverage
-      Requirements Discovery criterion §
-      170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
+      The ONC Certification (g)(31) Coverage Requirements Discovery API Test Suite
+      is a testing tool for Health Level 7 (HL7®) Fast Healthcare Interoperability
+      Resources (FHIR®) clients seeking to meet the requirements of the
+      [Coverage Requirements Discovery criterion § 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
       in the ONC Certification Program.
 
       **DISCLAIMER**: this test kit is currently a draft and not ready for ONC certification purposes.
 
-      This test suite is organized into testing scenarios that in sum cover the
+      This test suite is organized into groups that in sum cover the
       requirements within the [§ 170.315(g)(31) certification
       criterion](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery/).
-      The scenarios are intended to be run in order during certification, but can
+      The groups are intended to be run in order during certification testing, but can
       be run out of order to support testing during development or certification
       preparation. Some scenarios depend on data collected during previous
-      scenarios to function. In these cases, the scenario description describes
+      groups to function. In these cases, the group description describes
       these dependencies.
 
-      The tests in the first two scenarios are drawn from the Da Vinci CRD Test
-      Kit and verify conformance to the Da Vinci Coverage Requirements Discovery
-      (CRD) Implementation Guide. Refer to the descriptions of the individual
-      groups and tests for links to the specific version of the IG that they
-      verify.
+      Additional details about executing the tests in this suite can be found in
+      the [walkthrough](https://github.com/onc-healthit/onc-certification-g31-test-kit/wiki/Walkthrough)
+      which describes how to execute these tests against a publicly available
+      reference implementation.
 
-      The first scenario verifies that the system under test can discover
-      Inferno's simulated CRD services and invoke them as a CDS Hooks client,
-      including support for the order-sign hook, behavior shared across hooks,
-      and long-running hook requests. The second uses the US Core tests to verify
-      that the system exposes the FHIR API that CRD services rely on to retrieve
-      patient data. The last scenario contains a list of 'attestations' and
-      'visual inspections' for requirements that are currently not verified through
-      automated testing.
-
-      To get started, configure the system under test to use Inferno's simulated
-      CRD server by pointing it at the following CDS Hooks discovery endpoints:
+      To get started, configure the Health IT Module to use Inferno's simulated
+      CRD server by pointing it at the following CDS Hooks discovery endpoints
+      and begin with the "Registration" group:
 
       * `#{G31CRDImport.base_url}#{DaVinciCRDTestKit::DISCOVERY_PATH}`
       * `#{G31CRDImport.base_url}#{DaVinciCRDTestKit::PREFETCH_DISCOVERY_PATH}`
@@ -55,7 +45,7 @@ module ONCCertificationG31TestKit
     )
 
     suite_summary %(
-      The ONC Certification (g)(31) Standardized API Test Kit is a testing tool
+      The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is a testing tool
       for Health Level 7 (HL7®) Fast Healthcare Interoperability Resources
       (FHIR®) clients seeking to meet the requirements of the Coverage
       Requirements Discovery criterion § 170.315(g)(31) in the ONC Certification
@@ -83,7 +73,7 @@ module ONCCertificationG31TestKit
     ]
 
     # Allow the tester to select which US Core version to test against when
-    # launching the suite, the same way the (g)(10) test kit does.
+    # launching the suite
     suite_option :us_core_version,
                  title: 'US Core Version',
                  list_options: [
@@ -291,19 +281,49 @@ module ONCCertificationG31TestKit
         id :g31_hook_invocation
         title 'Hook Invocation'
         description %(
-          Inferno acts as a CRD server in these tests. The system under test is
-          expected to discover Inferno's simulated CDS services and invoke them
-          as a CDS Hooks client, and Inferno verifies that the requests it
-          receives conform to the CRD Implementation Guide.
+          During these tests, Inferno will simulate a CRD server for the Health IT Module
+          to interact with. The Health IT Module must
+          1. Register with both of Inferno's simulated CRD servers.
+          2. Discover the capabilities of Inferno's CDS services.
+          3. Make order-sign hook requests demonstrating conformance to CRD client
+             requirements across a variety of scenarios.
 
-          Run the Registration group first. It records the connection details
-          that the remaining groups use to associate incoming hook requests with
-          this test session.
+          Sub-group execution order notes:
+          - The "Registration" group must be run first. It records the connection details
+            that the remaining groups use to associate incoming hook requests with
+            this test session.
+          - The "Cross Hook" group must be run after the "order-sign" group as requests
+            made during that group will be analyzed.
+          - Sub-groups under the "Scenarios" groups can be run at any time because
+            requests made during these tests are not included in the cross hook analysis.
         )
 
         group from: :crd_v221_client_registration, exclude_optional: true
 
         group from: :crd_v221_client_hooks do
+          description %(
+            This group contains a sub-group which verifies the ability of the client to make and
+            react to responses from the order-sign required by the
+            [Coverage Requirements Discovery criterion § 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
+            * [order-sign](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/hooks.html#order-sign)
+
+            The hook-specific group follows a standard hook verification pattern:
+            1. Allow the client to make hook invocations for the tested hook, waiting until the tester indicates
+               that all desired requests have been made, then
+            2. Check the requests and their associated responses for conformance to (g)(31), CRD, and CDS Hooks
+               requirements. Additionally, ask the tester to confirm that the responses were displayed
+               appropriately by the client.
+
+            Inferno simulates two CRD discovery endpoints, each with an order-sign service endpoint
+            but with different service ids:
+            - Discovery endpoint for services requesting the complete [standard prefetch data set](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/foundation.html#standard-prefetch):
+              `#{DaVinciCRDTestKit::V221::ClientURLs.discovery_url}`
+              * `order-sign` service id: `order-sign-service`
+            - Discovery endpoint for services requesting a subset of the [standard prefetch data set](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/foundation.html#standard-prefetch):
+              `#{DaVinciCRDTestKit::V221::ClientURLs.prefetch_subset_discovery_url}`
+              * `order-sign` service id: `order-sign-subset`
+          )
+
           order_sign = groups.find { |group| group.id.to_s.include?('crd_v221_client_order_sign') }
           order_sign.required
 
@@ -325,8 +345,8 @@ module ONCCertificationG31TestKit
           )
         end
 
+        group from: :crd_v221_client_scenarios, exclude_optional: true
         group from: :crd_v221_client_cross_hook, exclude_optional: true
-        group from: :crd_v221_client_long_running_hook, exclude_optional: true
       end
     )
 

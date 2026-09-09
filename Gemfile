@@ -9,7 +9,7 @@ gemspec
 # so it is only reachable from git. This kit cannot be published to rubygems until then
 gem 'davinci_crd_test_kit',
     git: 'https://github.com/inferno-framework/davinci-crd-test-kit.git',
-    branch: 'main'
+    branch: 'release-v0.14.2'
 
 group :development, :test do
   gem 'debug'
