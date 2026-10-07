@@ -350,7 +350,10 @@ module ONCCertificationG31TestKit
         end
 
         group from: :crd_v221_client_scenarios, exclude_optional: true
-        group from: :crd_v221_client_cross_hook, exclude_optional: true
+        group from: :crd_v221_client_cross_hook, exclude_optional: true do
+          must_support = groups.find { |group| group.id.to_s.include?('crd_v221_client_cross_hook_must_support') }
+          must_support.remove :crd_v221_appointment_must_support
+        end
       end
     )
 

@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/inferno-framework/davinci-crd-test-kit.git
-  revision: 2dd97a7d34910686080f3a0622f5198acb544132
-  branch: release-v0.14.2
+  revision: 6ae3f78f676282b471ad7e61fcd1332facd149f6
+  branch: id-262-requirements-coverage
   specs:
     davinci_crd_test_kit (0.14.2)
-      inferno_core (~> 1.4, >= 1.4.3)
+      inferno_core (~> 1.4, >= 1.4.5)
       jwt (~> 3.2)
       smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
       tls_test_kit (~> 1.0)
@@ -170,7 +170,7 @@ GEM
       mutex_m
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
-    inferno_core (1.4.4)
+    inferno_core (1.4.5)
       activesupport (~> 7.2.3.1)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
@@ -506,7 +506,7 @@ CHECKSUMS
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
   httpclient (2.9.0) sha256=4b645958e494b2f86c2f8a2f304c959baa273a310e77a2931ddb986d83e498c8
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
-  inferno_core (1.4.4) sha256=3c0af47ebac937ac1d385c2e21d4b414a5ad6b5b7dfa27aa0c1599ea4a80b35d
+  inferno_core (1.4.5) sha256=3144dbf6afeac996493e796a40517f55bb819784810d26cd295c7849b5e0b50b
   io-console (0.9.2) sha256=efa74f891dd03c0939a931dfc6e74c2813d904763d456ea9762b0525e748db08
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   json (2.21.2) sha256=1f1d3b7cf2b3ba1a69beca0bb6db13d5438b80bff3cd54cdaaa620b9b07c1c6a
