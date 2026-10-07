@@ -289,8 +289,8 @@ module ONCCertificationG31TestKit
           to interact with. The Health IT Module must
           1. Register with both of Inferno's simulated CRD servers.
           2. Discover the capabilities of Inferno's CDS services.
-          3. Make order-sign hook requests demonstrating conformance to CRD client
-             requirements across a variety of scenarios.
+          3. Make order-sign hook requests demonstrating conformance to CRD
+             client requirements across a variety of scenarios.
 
           Sub-group execution order notes:
           - The "Registration" group must be run first. It records the connection details

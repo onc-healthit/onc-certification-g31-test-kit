@@ -6,7 +6,7 @@ module ONCCertificationG31TestKit
     title 'ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit'
     description <<~DESCRIPTION
       The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is a
-      testing tool for Health IT systems seeking to meet the requirements of the
+      testing tool for Health IT Modules seeking to meet the requirements of the
       Coverage Requirements Discovery criterion § 170.315(g)(31) in the ONC Health
       IT Certification Program.
 

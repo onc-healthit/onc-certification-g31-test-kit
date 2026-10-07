@@ -1,5 +1,5 @@
 The **ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit** is a testing tool
-for Health IT systems seeking to meet the requirements of the ONC [Coverage
+for Health IT Modules seeking to meet the requirements of the ONC [Coverage
 Requirements Discovery criterion §
 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
 in the ONC Health IT Certification Program. The following documentation provides information
