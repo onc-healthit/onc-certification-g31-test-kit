@@ -5,6 +5,7 @@ require_relative 'g31_crd_import'
 require_relative 'documentation_attestation_test'
 require_relative 'endpoints/g31_cds_services_discovery_handler'
 require_relative 'endpoints/g31_hook_request_endpoint'
+require_relative 'g31_requirements'
 
 module ONCCertificationG31TestKit
   class G31CertificationSuite < Inferno::TestSuite
@@ -127,7 +128,7 @@ module ONCCertificationG31TestKit
         requirements: 'billopt-1,conf-1,conf-3,conf-6,conf-10,conf-12,conf-13,dev-3-A,dev-12,dev-26,' \
                       'dev-28,dev-29-A,dev-30,dev-32,found-6,found-20,found-21,found-23,found-24,' \
                       'found-25-A,found-25-B,found-31,found-33,found-36-A,found-36-B,found-37,hook-1,' \
-                      'hook-2-A,hook-2-B,hook-3,hook-7,hook-8,hook-20,hook-21,hook-24,hook-37,hook-39,' \
+                      'hook-2-A,hook-2-B,hook-3,hook-7,hook-8,hook-20,hook-21,hook-37,hook-39,' \
                       'impl-1,prof-3,prof-4,prof-5,prof-6,prof-7,prof-8,prof-9,prof-10,prof-11,prof-12,' \
                       'prof-13,resp-14,resp-46,resp-48,resp-49,sec-1,sec-2,sec-7'
       },
@@ -169,6 +170,9 @@ module ONCCertificationG31TestKit
         }
       }
     )
+
+    verifies_requirements '170.315(g)(31)_HTI-4@1', '170.315(g)(31)_HTI-4@2', '170.315(g)(31)_HTI-4@6',
+                          'cds-hooks_3.0.0-ballot@1', 'cds-hooks_3.0.0-ballot@15', 'cds-hooks_3.0.0-ballot@208'
 
     fhir_resource_validator required_suite_options: G31Options::US_CORE_3_REQUIREMENT do
       igs(G31Options::CRD_V221_IG_PACKAGE)
@@ -366,5 +370,9 @@ module ONCCertificationG31TestKit
         test from: :g31_documentation_attestation_test
       end
     )
+
+    # Adds the (g)(31) and (j)(20) certification requirements to the imported runnables that verify
+    # them, after every group has been imported.
+    G31Requirements.apply!(self)
   end
 end
