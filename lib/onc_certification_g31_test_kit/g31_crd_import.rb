@@ -12,6 +12,12 @@ module ONCCertificationG31TestKit
 
   module G31CRDImport
     STALE_CACHE_IVARS = [:@test_count, :@available_inputs, :@children_available_inputs].freeze
+    RUNNABLE_TEXT_FIELDS = [:title, :short_title, :description, :input_instructions].freeze
+    INPUT_TEXT_FIELDS = [:title, :description].freeze
+
+    # Singular references only: statements about "CRD clients" in general are left as is.
+    CRD_CLIENT_PATTERN = /CRD client(?!s)/
+    HEALTH_IT_MODULE = 'Health IT Module'.freeze
 
     def self.import!(runnable)
       exclude_optional!(runnable)
@@ -39,26 +45,36 @@ module ONCCertificationG31TestKit
     end
 
     def self.rewrite_runnable_text!(runnable)
-      [:description, :input_instructions].each do |field|
-        text = runnable.send(field).to_s
-        next unless text.include?(crd_base_url)
+      RUNNABLE_TEXT_FIELDS.each do |field|
+        text = runnable.send(field)
+        next if text.nil?
 
-        runnable.send(field, text.gsub(crd_base_url, base_url))
+        rewritten = rewrite_text(text)
+        runnable.send(field, rewritten) unless rewritten == text
       end
     end
     private_class_method :rewrite_runnable_text!
 
     def self.rewrite_input_descriptions!(runnable)
       updates = runnable.config.inputs.each_with_object({}) do |(identifier, input), acc|
-        description = input.description.to_s
-        next unless description.include?(crd_base_url)
+        input_updates = INPUT_TEXT_FIELDS.each_with_object({}) do |field, field_acc|
+          text = input.send(field)
+          next if text.nil?
 
-        acc[identifier] = { description: description.gsub(crd_base_url, base_url) }
+          rewritten = rewrite_text(text)
+          field_acc[field] = rewritten unless rewritten == text
+        end
+
+        acc[identifier] = input_updates if input_updates.any?
       end
 
       runnable.config(inputs: updates) if updates.any?
     end
     private_class_method :rewrite_input_descriptions!
+
+    def self.rewrite_text(text)
+      text.to_s.gsub(crd_base_url, base_url).gsub(CRD_CLIENT_PATTERN, HEALTH_IT_MODULE)
+    end
 
     # Includes the CRD version prefix, so imported tests point at this suite's v2.2.1 endpoints
     # rather than at the suite root.

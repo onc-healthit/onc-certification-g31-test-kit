@@ -4,12 +4,10 @@ source "https://rubygems.org"
 
 gemspec
 
-# TODO: switch to the rubygems release once one exists that includes the CRD client v2.2.1
-# attestation group. That group landed on CRD main after v0.14.1, the latest published version,
-# so it is only reachable from git. This kit cannot be published to rubygems until then
+# TODO: switch to the rubygems release
 gem 'davinci_crd_test_kit',
     git: 'https://github.com/inferno-framework/davinci-crd-test-kit.git',
-    branch: 'release-v0.14.2'
+    branch: 'id-262-requirements-coverage'
 
 group :development, :test do
   gem 'debug'
