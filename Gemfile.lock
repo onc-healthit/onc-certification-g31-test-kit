@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/inferno-framework/davinci-crd-test-kit.git
-  revision: 9f96163b1ab445ac9fea07324bddc38c5ee820a9
+  revision: 3fa76e41be45270f8e9e943327e173cff765f01f
   branch: id-262-requirements-coverage
   specs:
     davinci_crd_test_kit (0.14.2)
