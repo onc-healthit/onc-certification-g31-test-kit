@@ -125,8 +125,8 @@ module ONCCertificationG31TestKit
         identifier: 'hl7.fhir.us.davinci-crd_2.2.1',
         title: 'Da Vinci Coverage Requirements Discovery (CRD) v2.2.1',
         actor: 'CRD Client',
-        requirements: 'billopt-1,conf-1,conf-3,conf-6,conf-10,conf-12,conf-13,dev-3-A,dev-12,dev-26,' \
-                      'dev-28,dev-29-A,dev-30,dev-32,found-6,found-20,found-21,found-23,found-24,' \
+        requirements: 'billopt-1,conf-1,conf-3,conf-6,conf-10,conf-12,conf-13,dev-3-A,dev-12,dev-26-A,' \
+                      'dev-26-B,dev-28,dev-29-A,dev-30,dev-32,found-6,found-20,found-21,found-23,found-24,' \
                       'found-25-A,found-25-B,found-31,found-33,found-36-A,found-36-B,found-37,hook-1,' \
                       'hook-2-A,hook-2-B,hook-3,hook-7,hook-8,hook-20,hook-21,hook-37,hook-39,' \
                       'impl-1,prof-3,prof-4,prof-5,prof-6,prof-7,prof-8,prof-9,prof-10,prof-11,prof-12,' \
