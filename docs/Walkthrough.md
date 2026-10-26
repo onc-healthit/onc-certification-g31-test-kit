@@ -49,8 +49,8 @@ The following steps necessary to complete certification testing are described in
 
 Most steps of this walkthrough include
 demonstration execution details using the [ONC-hosted Inferno instance](https://inferno.healthit.gov/suites/g31_certification)
-to evaluate the behavior of the 
-[publicly available Da Vinci burden reduction BR Provider reference implementation](https://br-provider.davinci.hl7.org/),
+to evaluate the behavior of the
+[publicly available Da Vinci Burden Reduction (BR) Provider reference implementation](https://br-provider.davinci.hl7.org/),
 showing the kinds of actions that a tester would take within a Health IT Module
 when running these tests against it.
 
@@ -62,7 +62,7 @@ try again later.
 ### Step 1: (g)(31) Test Session Creation
 
 * Go to <https://inferno.healthit.gov>.
-* Click the 'ONC (g)(31) CRD API Test Kit' button under 'ONC Health Certification
+* Click the 'ONC (g)(31) CRD API Test Kit' button under 'ONC Health IT Certification
   Program'.
 * Select which version of US Core to use when evaluating the FHIR server capabilities
   of the Health IT Module.
@@ -121,7 +121,7 @@ tester needs to configure the Health IT Module to connect to Inferno, including 
 *   Subset prefetch: `https://inferno.healthit.gov/custom/g31_certification/crd_v221/prefetch-subset/cds-services`
 
 Fetching either endpoint returns the CDS Hooks discovery response listing the services Inferno
-offers, including one for the `order-sign` hook. Inferno will not respond successfully to hook 
+offers, including one for the `order-sign` hook. Inferno will not respond successfully to hook
 requests made to advertised services during this test. However, testers can verify connectivity
 by making hook requests and checking the HTTP status of the error response: a 422 HTTP response
 code indicates the connection was successful while a 500 HTTP response code indicates failure.
@@ -129,7 +129,7 @@ The returned OperationOutcome will contain additional details.
 
 Once the tester has used this information to configure the Health IT Module to make hook requests
 against Inferno's services and confirmed connectivity if desired, the tester will click the
-appropriate attestation link in the "User Response Required" dialog to signal to Inferno that
+appropriate attestation link in the "User Action Required" dialog to signal to Inferno that
 registration has been completed.
 
 #### Reference implementation registration example
@@ -142,15 +142,15 @@ To configure the Da Vinci BR Provider reference implementation to connect to Inf
    including its JWT `iss` (`https://br-provider.davinci.hl7.org`).
 1. Select '1.1 Registration', click 'RUN TESTS', and then click 'SUBMIT' in the input dialog.
 1. Once the "User Action Required" dialog appears, open a separate tab and navigate
-   to https://br-provider.davinci.hl7.org/ and login (no password needed) as a practitioner
+   to https://br-provider.davinci.hl7.org/ and log in (no password needed) as a practitioner
    (any).
 1. Configure the connection to Inferno's simulated CRD server by:
    1. Clicking the gear icon in the upper right to open the settings dialog.
-   1. Select the "Payor" tab
-   1. Use the "Server" dropdown to select the "Custom" option.
-   1. In the "CDS Services URL" input, put `https://inferno.healthit.gov/custom/g31_certification/crd_v221/cds-services`.
-   1. Click the "Bypass payor-handled check" box.
-   1. Click the "Save" button and close the dialog to complete the setup.
+   1. Selecting the "Payor" tab.
+   1. Using the "Server" dropdown to select the "Custom" option.
+   1. In the "CDS Services URL" input, entering `https://inferno.healthit.gov/custom/g31_certification/crd_v221/cds-services`.
+   1. Checking the "Bypass payor-handled check" box.
+   1. Clicking the "Save" button and closing the dialog to complete the setup.
 1. Return to the Inferno test session and click the link to attest that Inferno has been
    registered. In this demonstration, the BR Provider reference implementation has only
    been configured to send hook requests to a single endpoint and an Organization id
@@ -163,7 +163,7 @@ No hook requests will have been made during these steps.
 
 The (g)(31) criterion requires support for the `order-sign` hook. This group verifies that the
 Health IT Module invokes it correctly and handles Inferno's response. Within the group
-are four sub-groups each with a particular role, though all must be run together
+are four sub-groups, each with a particular role, though all must be run together:
 *   **1.2.1.1 Interaction** - During these tests, Inferno will wait for the hook requests from the
     Health IT Module.
 *   **1.2.1.2 Response Handling** - Validates the structure and content of Inferno's simulated responses,
@@ -171,14 +171,14 @@ are four sub-groups each with a particular role, though all must be run together
     that the Health IT Module displayed information related to the Coverage Information
     response type appropriately as Inferno cannot automatically verify that display behavior.
 *   **1.2.1.3 Requests** - Validates the structure and content of each request.
-*   **1.2.1.4 Authorization** - Verifies the signed jwt used to authenticate the hook request.
+*   **1.2.1.4 Authorization** - Verifies the signed JWT used to authenticate the hook request.
 
 To run the group:
 
 *   Select '1.2.1 order-sign' and click 'RUN TESTS'.
 *   Choose how Inferno should build its responses using the **Response generation approach** input.
     See [Controlling Simulated Responses](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Controlling-Simulated-Responses)
-    in the CRD Test Kit wiki for the full detail on how each approach works:
+    in the CRD Test Kit wiki for full details on how each approach works:
     *   *'Create simple mocks based on selected response types'*
         is the default and builds a simple, generic coverage-information system action indicating
         that each submitted order is approved.
@@ -191,7 +191,7 @@ To run the group:
 *   A 'User Action Required' dialog appears while Inferno waits for the Health IT Module to invoke
     the `order-sign` service. Trigger the workflow in the Health IT Module that signs an order.
     * NOTE: Inferno will only respond to a hook request when it is in this waiting state AND
-      it receives a hook request where the jwt in the Authorization header has the value from
+      it receives a hook request where the JWT in the Authorization header has the value from
       the **CRD JWT Issuer** input in its `iss` payload field. If Inferno is not in a waiting
       state or the `iss` is missing or has a different value, the request will not return
       a successful response or be associated with the session for conformance analysis.
@@ -217,7 +217,7 @@ To run the group:
    implementation.
 1. Click the "Sign all Orders" button at the bottom of the chart frame (scroll down). On the
    next screen, click the "Confirm & Sign" button. This will trigger hook requests and
-   within a few seconds, you should see order coverage information update along with 
+   within a few seconds, you should see order coverage information update along with
    details on the hook request and response in the frame at the right.
 1. In the Inferno tab, click the link in the dialog to continue the tests. A new dialog
    will appear asking the tester to confirm that the returned responses were displayed
@@ -228,19 +228,20 @@ To run the group:
    "covered" indication) were displayed in the list of signed orders. Inferno will then
    take a few moments to analyze the interactions and check them for conformance.
 
-All tests may not pass. You can review the details in the tests to as described to review any failures.
+Not all tests may pass. Review the details in each test, as described in [step 8](#step-8-results-review),
+to understand any failures.
 
 ### Step 4: Scenarios
 
 During this group, you will demonstrate the conformant behavior of the Health IT Module
-in specific situations. In these tests, only very specific details of the request and responses
+in specific situations. In these tests, only very specific details of the requests and responses
 matter, so only those details are verified rather than the entire set of checks performed in the
 previous tests. Because the details of the requests and their responses are not checked
 in detail, requests made during these tests are not included in the cross-invocation analysis
 performed in [step 5](#step-5-cross-invocation-requirements).
 
 This group contains sub-groups testing the following scenarios:
-- Long-running Hook Response: The Health IT Module will make a hook request and Inferno will
+- Long-running Hook Request: The Health IT Module will make a hook request and Inferno will
   delay the response. The Health IT Module will then demonstrate that the user is not blocked
   from taking other actions while waiting for the response.
 - Unknown Response Content: The Health IT Module will make a hook request and Inferno will
@@ -254,7 +255,7 @@ This group contains sub-groups testing the following scenarios:
   two CRD service endpoints. Inferno will verify that coverage information was requested
   from only one.
 - User Access Level Scoping: The Health IT Module will place an order for the same service
-  twice using two different users with different access levels each triggering a hook
+  twice using two different users with different access levels, each triggering a hook
   request. Inferno will check that it had access to a more limited set of data during
   the second hook request made by the user with access to less data.
 
@@ -283,12 +284,12 @@ To do so, use the following steps:
    Inferno will pause for 15 seconds before responding. Attempt to click around within the UI
    to do something useful, e.g., place another order, without disrupting the display of the
    response.
-1. After the details on the order has displayed, or twenty seconds has elapsed, return to the
+1. After the order details have been displayed, or twenty seconds have elapsed, return to the
    Inferno tab. A new "User Action Required" dialog should be present asking for confirmation
    that you could continue the workflow while waiting for the response. Choose the answer
    based on your experience.
 
-### Step 5: Cross Invocation Requirements
+### Step 5: Cross-Invocation Requirements
 
 These tests examine the hook requests made by the Health IT Module against Inferno to ensure that
 behaviors required across all hook requests but not necessarily on each are demonstrated.
@@ -300,13 +301,13 @@ group to fall out of scope on the next run of this group.
 
 *   Select "1.4 Cross-Invocation Requirements" and click 'RUN TESTS'.
     *   Decide whether to send additional invocations:
-        *   If you don't want to submit additional requests use the input to indicate that
+        *   If you don't want to submit additional requests, use the input to indicate that
             and click "Submit". Inferno will perform the evaluation on only the hook requests
             made during the `order-sign` group. NOTE: you can re-run this group if you decide
             you need to submit additional invocations based on the outcome of the tests.
         *   Otherwise, provide Inferno response details as in [step 3](#step-3-order-sign-hook-invocation)
             and run the tests. As in [step 3](#step-3-order-sign-hook-invocation),
-            A "User Action Required" dialog will appear asking you to submit hook requests and once
+            a "User Action Required" dialog will appear asking you to submit hook requests and once
             you acknowledge they have been made you will be asked to attest to their correct display
             in the Health IT Module and then Inferno will check them for conformance.
     *   Indicate if there are any FHIR resource types profiled by CRD that Inferno should
@@ -316,28 +317,28 @@ group to fall out of scope on the next run of this group.
         resource type, you attest that the related information is not captured or displayed
         to users within the Health IT Module.
 *   Once any additional invocations have been made, Inferno will check them in aggregate against
-    the cross-invocation requirements, including
+    the cross-invocation requirements, including:
     *   Must Support - Demonstrated coverage of must support elements, including:
         *   Within requests, all must support elements indicated in profiles included within
             those requests. For these elements there is an option to attest to non-support
-            to elements not demonstrated, and
+            for elements not demonstrated.
         *   Within responses, all must support sub-extensions defined on the [coverage-information extension](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/StructureDefinition-ext-coverage-information.html).
     *   Additional Capabilities - Evidence of:
         *   Child location address propagation.
         *   Interpretation of FHIRPath Collections returned for tokens in prefetch templates
             as a comma-delimited list.
-        *   Non-reuse of `hookInstance` values
+        *   Non-reuse of `hookInstance` values.
         *   The demonstrated ability to fulfill both the complete standard prefetch data set and
             a subset depending on what the CRD Service requested in its hook service description.
-            Passing requires that the Health IT Module to have submitted requests against both
+            Passing requires the Health IT Module to have submitted requests against both
             of Inferno's service discovery endpoints described in [step 2](#step-2-registration).
-        *   Non-reuse of JWT `jti` values
+        *   Non-reuse of JWT `jti` values.
 
 See the descriptions and [linked requirements](https://inferno-framework.github.io/docs/user-interface.html#test-specific-requirements-display)
 of each test for details on what Inferno looks for.
 
 Once complete, the tests will report details on any failures using the mechanisms described
-in step 4. Review these and, if necessary, re-run the tests after re-submitting hook
+in [step 8](#step-8-results-review). Review these and, if necessary, re-run the tests after re-submitting hook
 requests demonstrating the additional features. Remember that re-executing a test where
 the Health IT Module previously submitted hook requests will cause requests made during the prior
 execution to fall out of scope. Therefore, features only demonstrated during that execution will
@@ -359,7 +360,7 @@ for the US Core version selected when creating the Inferno session. It also veri
 available over the Health IT Module's FHIR API.
 
 *   Select '2 FHIR API' and click 'RUN TESTS'. The following inputs are required to run the tests:
-    *   **FHIR Server Base URL**: This input is populated from `fhirServer` field of the most recent
+    *   **FHIR Server Base URL**: This input is populated from the `fhirServer` field of the most recent
         hook request made against Inferno in this session. It cannot be changed as Inferno must verify
         the behavior of the CRD Client's FHIR server and not some other system. If a hook request
         has not previously been made, these tests cannot be run.
@@ -368,12 +369,12 @@ available over the Health IT Module's FHIR API.
         using the `fhirAuthorization.access_token` field. This can be changed as the access token
         provided in the hook request is not required to be active outside of the hook invocation.
         Inferno needs a long-running access token to evaluate the US Core FHIR API, so if the access
-        token from the hook request is short lived and cannot be configured to be longer-lived, you
-        can manually provide a new access token, and client Id plus refresh token if needed to refresh
+        token from the hook request is short-lived and cannot be configured to be longer-lived, you
+        can manually provide a new access token, and client ID plus refresh token if needed to refresh
         the token if it expires. If you do so, you attest that the manually-provided token has the
         same scope and access as those sent in the hook requests.
     *   **Patient IDs**: one or more patient records that together include at least one example of
-        every element labelled 'MUST SUPPORT' in the relevant US Core profiles.
+        every element labeled 'MUST SUPPORT' in the relevant US Core profiles.
     *   **Implantable device codes**: optional filter for Device resources.
 *   Click 'SUBMIT'.
 
@@ -391,15 +392,15 @@ The Da Vinci Burden Reduction reference implementation has a limited set of FHIR
 running the tests illustrates the basics of the group execution.
 
 1. In Inferno, select group '2 FHIR API', click 'RUN TESTS' and provide the following inputs (others
-  will already be present):
-  - **Patient IDs**: use the id of the patient(s) found in the `patient` context of the hook
-  requests sent to Inferno, e.g., `pat014`.
+   will already be present):
+   - **Patient IDs**: use the id of the patient(s) found in the `patient` context of the hook
+     requests sent to Inferno, e.g., `pat014`.
 2. Run the tests and wait while they complete.
 3. While most sub-groups will fail, note that many tests in groups like "Patient Test" do pass.
 
 ### Step 7: Visual Inspection and Attestation
 
-Not every requirement can be verified automatically. This scenario collects attestations for the
+Not every requirement can be verified automatically. This group collects attestations for the
 remaining requirements of the criterion.
 
 *   Select '3 Visual Inspection and Attestation'.
@@ -414,13 +415,13 @@ remaining requirements of the criterion.
     'View Specification Requirements' link.
 
 These tests cover areas that are very broad or otherwise difficult to demonstrate or mechanically
-verify, such as security and privacy and hook invocation logging.
+verify, such as security, privacy, and hook invocation logging.
 
 ### Step 8: Results Review
 
 All tests have now been completed. Individual tests will contain in-depth information to help debug failures. Click
 on the name of an individual test to access these details on the following tabs when relevant:
-- **Messages**: A list of specific errors and messages that provide detail on reason for the outcome.
+- **Messages**: A list of specific errors and messages that provide detail on the reason for the outcome.
 - **Requests**: Details on the requests that Inferno is evaluating during this test.
 - **Inputs** and **Outputs**: Lists of the inputs Inferno used to determine test behavior and
   any outputs that Inferno recorded for use in future tests.
