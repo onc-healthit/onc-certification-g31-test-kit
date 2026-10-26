@@ -10,9 +10,6 @@ module ONCCertificationG31TestKit
       Coverage Requirements Discovery criterion § 170.315(g)(31) in the ONC Health
       IT Certification Program.
 
-      **DISCLAIMER**: this test kit is currently a **DRAFT** and not ready for ONC certification purposes.
-      <!-- break -->
-
       The CRD standard allows clients to support one of several US Core versions. To begin testing,
       select a US Core version for Inferno to verify against, and click 'Create Test Session'.
 
@@ -63,7 +60,7 @@ module ONCCertificationG31TestKit
     tags ['Da Vinci', 'CRD', 'US Core']
     last_updated LAST_UPDATED
     version VERSION
-    maturity 'Low'
+    maturity 'Certification'
     authors ['Inferno Team']
     repo 'https://github.com/onc-healthit/onc-certification-g31-test-kit'
   end

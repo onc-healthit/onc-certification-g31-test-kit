@@ -5,8 +5,6 @@ Requirements Discovery criterion §
 in the ONC Health IT Certification Program. The following documentation provides information
 on how to use and contribute to this test kit.
 
-DISCLAIMER: this test kit is currently a draft and not ready for ONC certification purposes.
-
 ## Overview
 
 This test kit validates conformance to the following implementation specifications required by the (g)(31) certification criterion:

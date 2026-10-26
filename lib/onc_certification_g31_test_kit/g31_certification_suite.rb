@@ -19,8 +19,6 @@ module ONCCertificationG31TestKit
       [Coverage Requirements Discovery criterion § 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
       in the ONC Certification Program.
 
-      **DISCLAIMER**: this test kit is currently a draft and not ready for ONC certification purposes.
-
       This test suite is organized into groups that in sum cover the
       requirements within the [§ 170.315(g)(31) certification
       criterion](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery/).
@@ -51,11 +49,6 @@ module ONCCertificationG31TestKit
       (FHIR®) clients seeking to meet the requirements of the Coverage
       Requirements Discovery criterion § 170.315(g)(31) in the ONC Certification
       Program.
-
-      Systems may adopt later versions of standards than those named in the rule
-      as approved by the ONC Standards Version Advancement Process (SVAP). Please
-      select which approved version of US Core to use, and click 'Create Test
-      Session' to begin testing.
     )
 
     links [

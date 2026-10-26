@@ -4,8 +4,6 @@ The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is a 
 Health IT Modules seeking to meet the requirements of the § 170.315(g)(31)
 certification criterion in the ONC Health IT Certification Program.
 
-DISCLAIMER: this test kit is currently a draft and not ready for ONC certification purposes.
-
 This test kit is built using the [Inferno
 Framework](https://inferno-framework.github.io/).
 
