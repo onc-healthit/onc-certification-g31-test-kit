@@ -9,6 +9,7 @@ module ONCCertificationG31TestKit
       testing tool for Health IT Modules seeking to meet the requirements of the
       Coverage Requirements Discovery criterion § 170.315(g)(31) in the ONC Health
       IT Certification Program.
+      <!-- break -->
 
       The CRD standard allows clients to support one of several US Core versions. To begin testing,
       select a US Core version for Inferno to verify against, and click 'Create Test Session'.
@@ -25,6 +26,7 @@ module ONCCertificationG31TestKit
       - Registration
       - CDS Hooks support for the order-sign hook
       - CRD Client capabilities
+      - FHIR API
       - Documentation
 
       See the test descriptions within the test kit for detail on the specific

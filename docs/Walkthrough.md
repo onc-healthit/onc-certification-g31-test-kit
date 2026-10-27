@@ -103,7 +103,7 @@ Executing this group involves the following steps:
 *   Provide the registration inputs:
     *   **CRD JWT Issuer** (`iss`): the value the Health IT Module will place in the `iss` claim of
         the JWT it uses to authorize its hook requests. This is required.
-    *   **CRD JWKS**: the Health IT Module's JWK Set, either as a URL or inline JSON. Inferno uses
+    *   **CRD JSON Web Key Set (JWKS)**: the Health IT Module's JWK Set, either as a URL or inline JSON. Inferno uses
         this to verify the signature on the Health IT Module's bearer tokens.
     *   **Complete Prefetch Service Organization id** and **Subset Prefetch Service Organization id**:
         Each Inferno CRD service endpoint must be associated with a payer configuration in
@@ -176,14 +176,14 @@ are four sub-groups, each with a particular role, though all must be run togethe
 To run the group:
 
 *   Select '1.2.1 order-sign' and click 'RUN TESTS'.
-*   Choose how Inferno should build its responses using the **Response generation approach** input.
+*   Choose how Inferno should build its responses using the **Response generation approach for order-sign** input.
     See [Controlling Simulated Responses](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Controlling-Simulated-Responses)
     in the CRD Test Kit wiki for full details on how each approach works:
     *   *'Create simple mocks based on selected response types'*
         is the default and builds a simple, generic coverage-information system action indicating
         that each submitted order is approved.
     *   *'Generate responses based on a tester-provided template'* lets you
-        supply your own response in the **Custom response template** input. This is necessary to
+        supply your own response in the **Custom response template for order-sign hook requests** input. This is necessary to
         set up scenarios tailored to the Health IT Module so that it can demonstrate all of the
         required behavior. For example, the mocked [`coverage-information`](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/StructureDefinition-ext-coverage-information.html)
         extension does not include all of the sub-extensions that must be demonstrated.
@@ -301,11 +301,13 @@ group to fall out of scope on the next run of this group.
 
 *   Select "1.4 Cross-Invocation Requirements" and click 'RUN TESTS'.
     *   Decide whether to send additional invocations:
-        *   If you don't want to submit additional requests, use the input to indicate that
-            and click "Submit". Inferno will perform the evaluation on only the hook requests
+        *   If you don't want to submit additional requests, select "No" for the
+            **Make additional hook requests?** input and click "Submit". Inferno will
+            perform the evaluation on only the hook requests
             made during the `order-sign` group. NOTE: you can re-run this group if you decide
             you need to submit additional invocations based on the outcome of the tests.
-        *   Otherwise, provide Inferno response details as in [step 3](#step-3-order-sign-hook-invocation)
+        *   Otherwise, select "Yes" for the **Make additional hook requests?** input, provide Inferno
+            response details as in [step 3](#step-3-order-sign-hook-invocation),
             and run the tests. As in [step 3](#step-3-order-sign-hook-invocation),
             a "User Action Required" dialog will appear asking you to submit hook requests and once
             you acknowledge they have been made you will be asked to attest to their correct display
@@ -360,11 +362,11 @@ for the US Core version selected when creating the Inferno session. It also veri
 available over the Health IT Module's FHIR API.
 
 *   Select '2 FHIR API' and click 'RUN TESTS'. The following inputs are required to run the tests:
-    *   **FHIR Server Base URL**: This input is populated from the `fhirServer` field of the most recent
+    *   **FHIR Endpoint**: This input is populated from the `fhirServer` field of the most recent
         hook request made against Inferno in this session. It cannot be changed as Inferno must verify
-        the behavior of the CRD Client's FHIR server and not some other system. If a hook request
+        the behavior of the Health IT Module's FHIR server and not some other system. If a hook request
         has not previously been made, these tests cannot be run.
-    *   **Auth info**: This input contains credentials for accessing the Health IT Module's FHIR API.
+    *   **OAuth Credentials**: This input contains credentials for accessing the Health IT Module's FHIR API.
         This input is also populated from the latest hook request made against Inferno in this session
         using the `fhirAuthorization.access_token` field. This can be changed as the access token
         provided in the hook request is not required to be active outside of the hook invocation.
@@ -375,7 +377,7 @@ available over the Health IT Module's FHIR API.
         same scope and access as those sent in the hook requests.
     *   **Patient IDs**: one or more patient records that together include at least one example of
         every element labeled 'MUST SUPPORT' in the relevant US Core profiles.
-    *   **Implantable device codes**: optional filter for Device resources.
+    *   **Implantable Device Type Code**: optional filter for Device resources.
 *   Click 'SUBMIT'.
 
 These tests follow the standard US Core [server testing pattern](https://inferno-framework.github.io/docs/getting-started/paradigms#server-responder-testing):
@@ -396,7 +398,7 @@ running the tests illustrates the basics of the group execution.
    - **Patient IDs**: use the id of the patient(s) found in the `patient` context of the hook
      requests sent to Inferno, e.g., `pat014`.
 2. Run the tests and wait while they complete.
-3. While most sub-groups will fail, note that many tests in groups like "Patient Test" do pass.
+3. While most sub-groups will fail, note that many tests in groups like "Patient Tests" do pass.
 
 ### Step 7: Visual Inspection and Attestation
 

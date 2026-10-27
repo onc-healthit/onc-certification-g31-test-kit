@@ -7,8 +7,8 @@ module ONCCertificationG31TestKit
   ).freeze
 
   class DocumentationAttestationTest < Inferno::Test
-    ATTESTATION_TITLE = 'Health IT module maintains complete technical documentation for its ' \
-                        'supported API server capabilities.'.freeze
+    ATTESTATION_TITLE = 'Health IT Module maintains complete technical documentation for its ' \
+                        'supported API server capabilities'.freeze
     title ATTESTATION_TITLE
     description %(
       During this test, the tester will confirm that complete technical documentation accompanies

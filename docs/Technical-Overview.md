@@ -6,7 +6,7 @@ and is intended to serve multiple purposes:
   effective transfer of this software to new stewards.
 
 This document does not provide detailed instructions on how to use
-an Inferno test kit, the contents of the (g)(31) Certification Criteria,
+an Inferno test kit, the contents of the (g)(31) Certification Criterion,
 basics of the Inferno Framework, or details on how to use Ruby, Docker,
 or other tools. Developers are expected to have at least a basic understanding
 of all these topics.
@@ -60,7 +60,7 @@ to learn the basics of RSpec as well.
 
 The ONC (g)(31) Certification Criterion requires the implementation of several
 FHIR Implementation Guides, while providing guidance on how to support these
-test kits to accomplish the specific requirements of the certification
+implementation guides to accomplish the specific requirements of the certification
 criterion. In order to facilitate testing systems independently of the (g)(31)
 Certification requirements, each of these Implementation Guides also has a
 stand-alone test kit. The (g)(31) Test Kit then imports tests defined in these
@@ -81,14 +81,14 @@ The (g)(31) Test Kit follows general Ruby conventions for applications and
 libraries. It is organized into several main directories:
 
 - `.github`: Contains workflows for integrating with GitHub's automated tools
-- `config`: Contains configuration files for the test kit, including presets.
+- `config`: Contains configuration files for the test kit, including presets
 - `data`: Contains runtime data for the test kit, such as local database files
-- `docs`: Contains documentation for this test kit.
-- `execution_scripts`: Contains integrated testing scripts.
-- `lib`: Contains the main logic for the test kit, including the test cases and helper functions.
+- `docs`: Contains documentation for this test kit
+- `execution_scripts`: Contains integrated testing scripts
+- `lib`: Contains the main logic for the test kit, including the test cases and helper functions
 - `lib/onc_certification_g31_test_kit`: Contains the main tests for the test kit
-- `spec`: Contains the RSpec test cases for the test kit.
-- `tmp`: Temporary files used by the test kit at runtime.
+- `spec`: Contains the RSpec test cases for the test kit
+- `tmp`: Temporary files used by the test kit at runtime
 
 The (g)(31) Test Kit contains a single suite of tests, which is capable of
 testing any valid combination of approved standards for certification. This
@@ -99,7 +99,7 @@ Kit itself.
 
 ## Testing Code Changes
 
-This test kit includes comprehensive "self testing" functionality to provide
+This test kit includes "self testing" functionality to provide
 confidence that the tests perform as expected. Prior to committing changes to
 this test kit, developers should ensure that both RSpec tests and End-to-End
 tests pass.
@@ -109,7 +109,9 @@ tests pass.
 The test kit contains many "unit" tests within the `spec` directory. These
 tests are written in RSpec, and can be run with the following command:
 
-```bundle exec rake```
+```
+bundle exec rake
+```
 
 These tests should be run after any changes to the tests, and must pass before
 any changes to the tests are merged into the main branch. It is not expected
@@ -120,7 +122,7 @@ likely to change.
 ### End-to-End testing
 
 Besides the unit tests provided within this test kit, after each update
-the tests should be validated against a complete server implementation
+the tests should be validated against a complete client implementation
 that is known to be correct. At this time, two systems can support partial
 end-to-end testing:
 - The Da Vinci BR Provider Reference Implementation: See the [Walkthrough](Walkthrough) for
@@ -131,15 +133,15 @@ end-to-end testing:
   suite's order-sign interaction and validation against the Inferno CRD
   Server v2.2.1 Suite, including in a local environment, perform the
   following steps:
-  1. Create a CRD Server v2.2.1 session by navigating to `<inferno-base>/davinci_crd` 
-  (e.g. http://localhost:4567/davinci_crd), selecting "Da Vinci CRD Server
+  1. Create a CRD Server v2.2.1 session by navigating to `<inferno-base>/davinci_crd`
+  (e.g., http://localhost:4567/davinci_crd), selecting "Da Vinci CRD Server
   v2.2.1 Test Suite", and clicking "Start Testing".
   1. Select the "Run Against the (g)(31) Suite" preset.
   1. Run group "1 Discovery" and confirm that all pass (NOTE: if running locally
   without TLS setup, test "1.01 CRD server uses TLS 1.2 or higher" is expected
   to fail).
   1. In another tab, create a (g)(31) session by navigating to `<inferno-base>/onc_certification_g31`,
-  (e.g. http://localhost:4567/onc_certification_g31), selecting any version of
+  (e.g., http://localhost:4567/onc_certification_g31), selecting any version of
   US Core, and clicking "Start Testing".
   1. Select the "Run Against the CRD Server Suite" preset.
   1. Run group "1.2.1 order-sign" without any changes to inputs.
@@ -155,9 +157,10 @@ end-to-end testing:
        which fails due to invalid request content sent intentionally by the
        server suite.
      - Test "1.2.1.3.08 Hook request interactions use TLS" will fail when run
-       locally without TLS. 
+       locally without TLS.
 
 ## FHIR and Terminology Validation
 
 To allow test developers control of terminology validation, the public version of
-this test kit relies on a private terminology server.
+this test kit relies on a private terminology server. The terminology server used
+is governed by the `G31_TERMINOLOGY_SERVER` environment variable.

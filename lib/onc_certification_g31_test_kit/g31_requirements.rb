@@ -1,6 +1,6 @@
 module ONCCertificationG31TestKit
   # Maps the § 170.315(g)(31) and § 170.315(j)(20) certification requirements onto the runnables
-  # imported from the Da Vinci PAS client suite.
+  # imported from the Da Vinci CRD client suite.
   #
   # The imported runnables already declare the IG-level requirements that they verify, so these
   # regulatory requirements are added to what each one declares rather than replacing it.
@@ -14,7 +14,7 @@ module ONCCertificationG31TestKit
 
     # Requirement id => the runnables that verify it, identified by the trailing portion of their id
     # within this suite. Keys are the shortest suffix that identifies a single runnable; ids that
-    # are reused across groups (e.g. the response attestation) are qualified by their parent.
+    # are reused across groups (e.g., the response attestation) are qualified by their parent.
     REQUIREMENT_MAP = {
       "#{G31_SET}@3" => [
         'crd_v221_client_registration'

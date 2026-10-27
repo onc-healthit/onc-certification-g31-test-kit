@@ -17,7 +17,7 @@ This test kit validates conformance to the following implementation specificatio
 ## Using this Test Kit
 
 *   [Getting Started](https://github.com/onc-healthit/onc-certification-g31-test-kit#getting-started): Installation instructions for setting up and running this test kit locally.
-*   [Test Kit Walkthrough](https://github.com/onc-healthit/onc-certification-g31-test-kit/wiki/Walkthrough): A step-by-step guide to using this test kit, including screenshots and detailed instructions for each testing scenario.
+*   [Test Kit Walkthrough](https://github.com/onc-healthit/onc-certification-g31-test-kit/wiki/Walkthrough): A step-by-step guide to using this test kit, including detailed instructions for each group.
 
 ## Contributing to this Test Kit
 
