@@ -10,10 +10,12 @@ GIT
       tls_test_kit (~> 1.0)
       us_core_test_kit (~> 1.0)
 
-PATH
-  remote: ../inferno-core
+GIT
+  remote: https://github.com/inferno-framework/inferno-core.git
+  revision: 22f4cf52e2d22c22a8f3bd8309141dbb51152aa9
+  branch: ci-main-ui
   specs:
-    inferno_core (1.6.0)
+    inferno_core (1.5.0)
       activesupport (~> 7.2.3.1)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
@@ -47,13 +49,23 @@ PATH
       thor (~> 1.4)
       tty-markdown (~> 0.7.1)
 
+GIT
+  remote: https://github.com/inferno-framework/us-core-test-kit.git
+  revision: ab6858e0e54567d9bc7f4b133769291658078c7c
+  branch: release-1.2.0
+  specs:
+    us_core_test_kit (1.2.0)
+      inferno_core (~> 1.5, >= 1.5.0)
+      smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
+      tls_test_kit (~> 1.0, >= 1.0.2)
+
 PATH
   remote: .
   specs:
     onc_certification_g31_test_kit (0.9.0)
       davinci_crd_test_kit (= 0.14.2)
-      inferno_core (~> 1.6, >= 1.6.0)
-      us_core_test_kit (= 1.1.6)
+      inferno_core (~> 1.5, >= 1.5.0)
+      us_core_test_kit (= 1.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -412,10 +424,6 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (1.1.6)
-      inferno_core (~> 1.4, >= 1.4.3)
-      smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
-      tls_test_kit (~> 1.0, >= 1.0.2)
     version_gem (1.1.15)
     webmock (3.26.4)
       addressable (>= 2.8.0)
@@ -447,6 +455,7 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   simplecov (= 0.21.2)
+  us_core_test_kit!
   webmock (~> 3.11)
 
 CHECKSUMS
@@ -514,7 +523,7 @@ CHECKSUMS
   http-cookie (1.1.6) sha256=ba4b82be64de61dc281243dac70e3c382c45142f20268ed9276a3670c93feaa9
   httpclient (2.9.0) sha256=4b645958e494b2f86c2f8a2f304c959baa273a310e77a2931ddb986d83e498c8
   i18n (1.15.2) sha256=00f9eb62412fe593b2a65a97daa75300d37abb8f7202ec748e94b6d46a9dd1b5
-  inferno_core (1.6.0)
+  inferno_core (1.5.0)
   io-console (0.9.4) sha256=a403304f32928ee85e56d457b4612ca43f2703b561a3258844992bd24085fbb1
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   json (2.21.2) sha256=1f1d3b7cf2b3ba1a69beca0bb6db13d5438b80bff3cd54cdaaa620b9b07c1c6a
@@ -608,7 +617,7 @@ CHECKSUMS
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   unicode-display_width (2.6.0) sha256=12279874bba6d5e4d2728cef814b19197dbb10d7a7837a869bab65da943b7f5a
   unicode_utils (1.4.0) sha256=b922d0cf2313b6b7136ada6645ce7154ffc86418ca07d53b058efe9eb72f2a40
-  us_core_test_kit (1.1.6) sha256=6926873ee2ffbc8926ff7a0bab5bb8328192427459aa5a05b551f5e2878cf8f8
+  us_core_test_kit (1.2.0)
   version_gem (1.1.15) sha256=a73241587b29252e3567e0c818ded80730eb754d43b508f6ce4db22ca9ba27d0
   webmock (3.26.4) sha256=8d8da206d217ebe6968cfb09c77f4533c23074e1432bad865f3994eacbaad50d
   zeitwerk (2.8.3) sha256=2c85125a8467ce069e20123d1e709a08955c9d29c118c25b46b7b7fafdbb92e5
