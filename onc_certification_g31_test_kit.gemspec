@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit'
   spec.homepage      = 'https://github.com/onc-healthit/onc-certification-g31-test-kit'
   spec.license       = 'Apache-2.0'
-  spec.add_dependency 'inferno_core', '~> 1.5', '>= 1.5.0'
+  spec.add_dependency 'inferno_core', '~> 1.6', '>= 1.6.0'
 
   # **Please note**: Version constraints for dependant test kits should only be
   # locked to a single version in certification test kits (such as this one).
