@@ -18,6 +18,20 @@ used in test kits like Inferno's
 The following sections provide context for understanding how to use and
 pass these tests.
 
+### System Terminology
+
+Descriptions and feedback messages in this test kit use several terms to refer
+to the tested system:
+- "Health IT Module": The official term used by the [criterion](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery).
+  Test titles and descriptions use this term.
+- "CRD client": The role the Health IT Module plays in the
+  [Da Vinci Coverage Requirements Discovery (CRD) FHIR Implementation Guide](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/index.html),
+  which the criterion requires it to implement. Messages produced while the tests run come from
+  tests imported from the CRD Test Kit and generally use this term.
+- "US Core server" and "FHIR server": The CRD IG requires CRD clients to implement US Core server
+  capabilities. These tests include a "FHIR API" group which sometimes refers to the tested
+  system using these terms.
+
 ### (g)(31) Client Testing Basics
 
 To understand the basics of client testing for the (g)(31) tests, see the CRD Test Kit

@@ -75,6 +75,49 @@ The specific test kits that are imported into this test kit include:
 1. **[US Core Test Kit](https://github.com/inferno-framework/us-core-test-kit)**:
    The CRD test kit uses US Core tests which are in turn imported into (g)(31).
 
+### Importing CRD Client Tests
+
+The CRD client groups are pulled into the suite with Inferno's `group from:`
+and `test from:` DSL. The imported groups and tests are then passed through
+`G31CRDImport.import!`, defined in
+`lib/onc_certification_g31_test_kit/g31_crd_import.rb`, which adapts them in
+three ways:
+
+* **Optional runnables are removed.** `exclude_optional: true` only drops the
+  direct children of the imported group, so `import!` removes optional
+  runnables at every level below it.
+* **CRD URLs point at this suite.** The CRD endpoints are registered by this
+  suite under a CRD version prefix (`/crd_v221`) so that a later CRD version
+  can be added alongside it. Imported tests get `G31ClientURLs`, so the URLs
+  they build at run time resolve to these endpoints rather than the CRD client
+  suite's. URLs in static text, as described below, are rewritten as well.
+* **Static text describes the Health IT Module.** In titles, short titles,
+  descriptions and input instructions of runnables, and in titles and
+  descriptions of inputs, CRD client suite URLs are replaced with this
+  suite's, and singular references to "CRD client" become "Health IT Module".
+  Plural "CRD clients" is left alone, because it refers to CRD clients in
+  general, not the system under test.
+
+Only the static text is rewritten. Messages produced while the tests run, such
+as assertion failures, skip reasons and error messages, come from the CRD test
+kit unchanged and may still refer to the system under test as the "CRD client".
+This is intentional: in these tests the Health IT Module is acting as a CRD
+client, so the term remains accurate, and the CRD test kit should keep the
+terminology of its own implementation guide. Rewriting these messages would
+depend on how the Inferno test runner collects results internally, which is not
+a supported extension point.
+
+After all groups are imported, `G31Requirements.apply!`, defined in
+`lib/onc_certification_g31_test_kit/g31_requirements.rb`, adds the
+§ 170.315(g)(31) and § 170.315(j)(20) requirements to the imported runnables
+that verify them, alongside the CRD implementation guide requirements they
+already declare.
+
+The specs in `spec/onc_certification_g31_test_kit/g31_certification_suite_spec.rb`
+and `g31_requirements_spec.rb` check each of these steps against the imported
+suite. Run them after updating the CRD test kit version to catch anything a new
+release adds that these steps don't handle.
+
 ## Test Kit Code Organization
 
 The (g)(31) Test Kit follows general Ruby conventions for applications and

@@ -49,6 +49,11 @@ module ONCCertificationG31TestKit
       (FHIR®) clients seeking to meet the requirements of the Coverage
       Requirements Discovery criterion § 170.315(g)(31) in the ONC Health IT
       Certification Program.
+
+      The Da Vinci Coverage Requirements Discovery FHIR IG referenced by (g)(31) requires Health IT
+      Modules to support a version of the US Core IG, but provides several options. Please
+      select which version of US Core to use, and click 'Create Test
+      Session' to begin testing.
     )
 
     links [
