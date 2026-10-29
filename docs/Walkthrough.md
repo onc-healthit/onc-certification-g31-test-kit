@@ -56,7 +56,7 @@ The following steps necessary to complete certification testing are described in
 *   [Step 2: Registration](#step-2-registration)
 *   [Step 3: `order-sign` Hook Invocation](#step-3-order-sign-hook-invocation)
 *   [Step 4: Scenarios](#step-4-scenarios)
-*   [Step 5: Cross Invocation Requirements](#step-5-cross-invocation-requirements)
+*   [Step 5: Cross-Invocation Requirements](#step-5-cross-invocation-requirements)
 *   [Step 6: Client FHIR API](#step-6-client-fhir-api)
 *   [Step 7: Visual Inspection and Attestation](#step-7-visual-inspection-and-attestation)
 *   [Step 8: Results Review](#step-8-results-review)
@@ -131,8 +131,8 @@ These values are carried forward and locked in the later hook groups, so you onl
 
 Once started, Inferno will display a "User Action Required" dialog providing information the
 tester needs to configure the Health IT Module to connect to Inferno, including Inferno's Service Discovery Endpoints:
-*   Complete prefetch: `https://inferno.healthit.gov/custom/g31_certification/crd_v221/cds-services`
-*   Subset prefetch: `https://inferno.healthit.gov/custom/g31_certification/crd_v221/prefetch-subset/cds-services`
+*   Complete prefetch: `https://inferno.healthit.gov/suites/custom/g31_certification/crd_v221/cds-services`
+*   Subset prefetch: `https://inferno.healthit.gov/suites/custom/g31_certification/crd_v221/prefetch-subset/cds-services`
 
 Fetching either endpoint returns the CDS Hooks discovery response listing the services Inferno
 offers, including one for the `order-sign` hook. Inferno will not respond successfully to hook
@@ -160,16 +160,18 @@ To configure the Da Vinci BR Provider reference implementation to connect to Inf
    (any).
 1. Configure the connection to Inferno's simulated CRD server by:
    1. Clicking the gear icon in the upper right to open the settings dialog.
-   1. Selecting the "Payor" tab.
+   1. Selecting the "Payer" tab.
    1. Using the "Server" dropdown to select the "Custom" option.
-   1. In the "CDS Services URL" input, entering `https://inferno.healthit.gov/custom/g31_certification/crd_v221/cds-services`.
+   1. In the "CDS Services URL" input, entering `https://inferno.healthit.gov/suites/custom/g31_certification/crd_v221/cds-services`.
+   1. In the "FHIR URL" input, entering `https://br-payer.davinci.hl7.org/fhir`.
    1. Checking the "Bypass payor-handled check" box.
    1. Clicking the "Save" button and closing the dialog to complete the setup.
 1. Return to the Inferno test session and click the link to attest that Inferno has been
    registered. In this demonstration, the BR Provider reference implementation has only
    been configured to send hook requests to a single endpoint and an Organization id
    has not been provided for the payer associated with the subset endpoint, so the
-   tests are expected to fail on test "**1.1.01** Health IT Module registers with Inferno".
+   tests are expected to fail on test "**1.1.01** Health IT Module registration details
+   are complete and valid".
 
 No hook requests will have been made during these steps.
 
@@ -255,7 +257,7 @@ in detail, requests made during these tests are not included in the cross-invoca
 performed in [step 5](#step-5-cross-invocation-requirements).
 
 This group contains sub-groups testing the following scenarios:
-- Long-running Hook Request: The Health IT Module will make a hook request and Inferno will
+- Long-Running Hook Request: The Health IT Module will make a hook request and Inferno will
   delay the response. The Health IT Module will then demonstrate that the user is not blocked
   from taking other actions while waiting for the response.
 - Unknown Response Content: The Health IT Module will make a hook request and Inferno will
@@ -279,9 +281,11 @@ each group.
 
 #### Reference implementation scenario example
 
-The Da Vinci Burden Reduction reference implementation does not have the capability to perform
-all of these scenarios. One that it can perform is the Long-running Hook Request case.
-To do so, use the following steps:
+The Da Vinci Burden Reduction reference implementation only has the capability to perform
+the "Long-Running Hook Request" and "Unknown Response Content" scenarios. The other scenarios,
+"Self-Pay", "Multiple Payers", and "User Access Level Scoping" require capabilities not
+currently present within the reference implementation. To run the "Long-Running Hook Request"
+scenario against the reference implementation, use the following steps:
 
 1. Select a patient (any) to open their chart.
 1. Start an encounter by clicking the "Start Encounter" button in the far upper right of
@@ -313,7 +317,7 @@ during the last execution of a given test are included in the analysis, so re-ru
 `order-sign` group or this group will cause requests submitted during the previous run of that
 group to fall out of scope on the next run of this group.
 
-*   Select "1.4 Cross-Invocation Requirements" and click 'RUN TESTS'.
+*   Select "1.4 Cross-Invocation Requirements" and click 'RUN ALL TESTS'.
     *   Decide whether to send additional invocations:
         *   If you don't want to submit additional requests, select "No" for the
             **Make additional hook requests?** input and click "Submit". Inferno will
@@ -336,8 +340,12 @@ group to fall out of scope on the next run of this group.
     the cross-invocation requirements, including:
     *   Must Support - Demonstrated coverage of must support elements, including:
         *   Within requests, all must support elements indicated in profiles included within
-            those requests. For these elements there is an option to attest to non-support
-            for elements not demonstrated.
+            those requests. For each supported resource type with unobserved must support elements
+            Inferno will display a "User Action Required" dialog listing the unobserved elements
+            and providing the option to attest that the Health IT Module does not collect or
+            display the related information to users. Inferno will also verify that must support
+            reference elements were observed to resolve to a resource conformant to the
+            must support profile(s).
         *   Within responses, all must support sub-extensions defined on the [coverage-information extension](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/StructureDefinition-ext-coverage-information.html).
     *   Additional Capabilities - Evidence of:
         *   Child location address propagation.
@@ -351,11 +359,14 @@ group to fall out of scope on the next run of this group.
         *   Non-reuse of JWT `jti` values.
 
 See the descriptions and [linked requirements](https://inferno-framework.github.io/docs/user-interface.html#test-specific-requirements-display)
-of each test for details on what Inferno looks for.
+of each test for details on what Inferno looks for. For additional detail on the
+must support tests, including the checks performed and the effect of the inputs,
+see the [Client Must Support Tests](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Client-Must-Support)
+section of the CRD Test Kit wiki.
 
-Once complete, the tests will report details on any failures using the mechanisms described
-in [step 8](#step-8-results-review). Review these and, if necessary, re-run the tests after re-submitting hook
-requests demonstrating the additional features. Remember that re-executing a test where
+Once complete, the tests will report details on any failure or skip results using the mechanisms described
+in [step 8](#step-8-results-review). Review these and, if necessary, re-run the tests after re-submitting
+hook requests demonstrating the additional features. Remember that re-executing a test where
 the Health IT Module previously submitted hook requests will cause requests made during the prior
 execution to fall out of scope. Therefore, features only demonstrated during that execution will
 need to be demonstrated again during the new test run.
@@ -363,8 +374,8 @@ need to be demonstrated again during the new test run.
 #### Reference implementation cross-hook example
 
 1. Run group "1.4 Cross-Invocation Requirements" without submitting additional requests.
-2. Many of the requirements will fail due to incomplete coverage, including no requests made against
-   the prefetch subset `order-sign` service.
+2. Many of the tests will end with a "skipped" result due to incomplete coverage, including
+   no requests made against the prefetch subset `order-sign` service.
 
 ### Step 6: Client FHIR API
 
@@ -375,7 +386,7 @@ for the US Core version selected when creating the Inferno session. It also veri
 `coverage-information` extensions from Inferno's responses are actually persisted and made
 available over the Health IT Module's FHIR API.
 
-*   Select '2 FHIR API' and click 'RUN TESTS'. The following inputs are required to run the tests:
+*   Select '2 FHIR API' and click 'RUN ALL TESTS'. The following inputs are required to run the tests:
     *   **FHIR Endpoint**: This input is populated from the `fhirServer` field of the most recent
         hook request made against Inferno in this session. It cannot be changed as Inferno must verify
         the behavior of the Health IT Module's FHIR server and not some other system. If a hook request
@@ -407,12 +418,12 @@ performed.
 The Da Vinci Burden Reduction reference implementation has a limited set of FHIR data available, but
 running the tests illustrates the basics of the group execution.
 
-1. In Inferno, select group '2 FHIR API', click 'RUN TESTS' and provide the following inputs (others
+1. In Inferno, select group '2 FHIR API', click 'RUN ALL TESTS' and provide the following inputs (others
    will already be present):
    - **Patient IDs**: use the id of the patient(s) found in the `patient` context of the hook
      requests sent to Inferno, e.g., `pat014`.
 2. Run the tests and wait while they complete.
-3. While most sub-groups will fail, note that many tests in groups like "Patient Tests" do pass.
+3. While most sub-groups will fail or skip, note that many tests in groups like "Patient Tests" do pass.
 
 ### Step 7: Visual Inspection and Attestation
 
@@ -446,5 +457,4 @@ on the name of an individual test to access these details on the following tabs 
   specification requirements verified by the test.
 
 To print out a copy of the results, click the 'Report' icon in
-the menu on the left and then the 'Print' icon within that view. Export this report if you would
-like to keep a copy of the results.
+the menu on the left and then the 'Print' icon within that view.
