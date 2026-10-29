@@ -6,11 +6,9 @@ module ONCCertificationG31TestKit
     title 'ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit'
     description <<~DESCRIPTION
       The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is a
-      testing tool for Health IT systems seeking to meet the requirements of the
+      testing tool for Health IT Modules seeking to meet the requirements of the
       Coverage Requirements Discovery criterion § 170.315(g)(31) in the ONC Health
       IT Certification Program.
-
-      **DISCLAIMER**: this test kit is currently a **DRAFT** and not ready for ONC certification purposes.
       <!-- break -->
 
       The CRD standard allows clients to support one of several US Core versions. To begin testing,
@@ -28,6 +26,7 @@ module ONCCertificationG31TestKit
       - Registration
       - CDS Hooks support for the order-sign hook
       - CRD Client capabilities
+      - FHIR API
       - Documentation
 
       See the test descriptions within the test kit for detail on the specific
@@ -63,7 +62,7 @@ module ONCCertificationG31TestKit
     tags ['Da Vinci', 'CRD', 'US Core']
     last_updated LAST_UPDATED
     version VERSION
-    maturity 'Low'
+    maturity 'Certification'
     authors ['Inferno Team']
     repo 'https://github.com/onc-healthit/onc-certification-g31-test-kit'
   end

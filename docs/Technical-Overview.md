@@ -6,7 +6,7 @@ and is intended to serve multiple purposes:
   effective transfer of this software to new stewards.
 
 This document does not provide detailed instructions on how to use
-an Inferno test kit, the contents of the (g)(31) Certification Criteria,
+an Inferno test kit, the contents of the (g)(31) Certification Criterion,
 basics of the Inferno Framework, or details on how to use Ruby, Docker,
 or other tools. Developers are expected to have at least a basic understanding
 of all these topics.
@@ -60,7 +60,7 @@ to learn the basics of RSpec as well.
 
 The ONC (g)(31) Certification Criterion requires the implementation of several
 FHIR Implementation Guides, while providing guidance on how to support these
-test kits to accomplish the specific requirements of the certification
+implementation guides to accomplish the specific requirements of the certification
 criterion. In order to facilitate testing systems independently of the (g)(31)
 Certification requirements, each of these Implementation Guides also has a
 stand-alone test kit. The (g)(31) Test Kit then imports tests defined in these
@@ -75,20 +75,63 @@ The specific test kits that are imported into this test kit include:
 1. **[US Core Test Kit](https://github.com/inferno-framework/us-core-test-kit)**:
    The CRD test kit uses US Core tests which are in turn imported into (g)(31).
 
+### Importing CRD Client Tests
+
+The CRD client groups are pulled into the suite with Inferno's `group from:`
+and `test from:` DSL. The imported groups and tests are then passed through
+`G31CRDImport.import!`, defined in
+`lib/onc_certification_g31_test_kit/g31_crd_import.rb`, which adapts them in
+three ways:
+
+* **Optional runnables are removed.** `exclude_optional: true` only drops the
+  direct children of the imported group, so `import!` removes optional
+  runnables at every level below it.
+* **CRD URLs point at this suite.** The CRD endpoints are registered by this
+  suite under a CRD version prefix (`/crd_v221`) so that a later CRD version
+  can be added alongside it. Imported tests get `G31ClientURLs`, so the URLs
+  they build at run time resolve to these endpoints rather than the CRD client
+  suite's. URLs in static text, as described below, are rewritten as well.
+* **Static text describes the Health IT Module.** In titles, short titles,
+  descriptions and input instructions of runnables, and in titles and
+  descriptions of inputs, CRD client suite URLs are replaced with this
+  suite's, and singular references to "CRD client" become "Health IT Module".
+  Plural "CRD clients" is left alone, because it refers to CRD clients in
+  general, not the system under test.
+
+Only the static text is rewritten. Messages produced while the tests run, such
+as assertion failures, skip reasons and error messages, come from the CRD test
+kit unchanged and may still refer to the system under test as the "CRD client".
+This is intentional: in these tests the Health IT Module is acting as a CRD
+client, so the term remains accurate, and the CRD test kit should keep the
+terminology of its own implementation guide. Rewriting these messages would
+depend on how the Inferno test runner collects results internally, which is not
+a supported extension point.
+
+After all groups are imported, `G31Requirements.apply!`, defined in
+`lib/onc_certification_g31_test_kit/g31_requirements.rb`, adds the
+§ 170.315(g)(31) and § 170.315(j)(20) requirements to the imported runnables
+that verify them, alongside the CRD implementation guide requirements they
+already declare.
+
+The specs in `spec/onc_certification_g31_test_kit/g31_certification_suite_spec.rb`
+and `g31_requirements_spec.rb` check each of these steps against the imported
+suite. Run them after updating the CRD test kit version to catch anything a new
+release adds that these steps don't handle.
+
 ## Test Kit Code Organization
 
 The (g)(31) Test Kit follows general Ruby conventions for applications and
 libraries. It is organized into several main directories:
 
 - `.github`: Contains workflows for integrating with GitHub's automated tools
-- `config`: Contains configuration files for the test kit, including presets.
+- `config`: Contains configuration files for the test kit, including presets
 - `data`: Contains runtime data for the test kit, such as local database files
-- `docs`: Contains documentation for this test kit.
-- `execution_scripts`: Contains integrated testing scripts.
-- `lib`: Contains the main logic for the test kit, including the test cases and helper functions.
+- `docs`: Contains documentation for this test kit
+- `execution_scripts`: Contains integrated testing scripts
+- `lib`: Contains the main logic for the test kit, including the test cases and helper functions
 - `lib/onc_certification_g31_test_kit`: Contains the main tests for the test kit
-- `spec`: Contains the RSpec test cases for the test kit.
-- `tmp`: Temporary files used by the test kit at runtime.
+- `spec`: Contains the RSpec test cases for the test kit
+- `tmp`: Temporary files used by the test kit at runtime
 
 The (g)(31) Test Kit contains a single suite of tests, which is capable of
 testing any valid combination of approved standards for certification. This
@@ -99,7 +142,7 @@ Kit itself.
 
 ## Testing Code Changes
 
-This test kit includes comprehensive "self testing" functionality to provide
+This test kit includes "self testing" functionality to provide
 confidence that the tests perform as expected. Prior to committing changes to
 this test kit, developers should ensure that both RSpec tests and End-to-End
 tests pass.
@@ -109,7 +152,9 @@ tests pass.
 The test kit contains many "unit" tests within the `spec` directory. These
 tests are written in RSpec, and can be run with the following command:
 
-```bundle exec rake```
+```
+bundle exec rake
+```
 
 These tests should be run after any changes to the tests, and must pass before
 any changes to the tests are merged into the main branch. It is not expected
@@ -120,7 +165,7 @@ likely to change.
 ### End-to-End testing
 
 Besides the unit tests provided within this test kit, after each update
-the tests should be validated against a complete server implementation
+the tests should be validated against a complete client implementation
 that is known to be correct. At this time, two systems can support partial
 end-to-end testing:
 - The Da Vinci BR Provider Reference Implementation: See the [Walkthrough](Walkthrough) for
@@ -131,15 +176,15 @@ end-to-end testing:
   suite's order-sign interaction and validation against the Inferno CRD
   Server v2.2.1 Suite, including in a local environment, perform the
   following steps:
-  1. Create a CRD Server v2.2.1 session by navigating to `<inferno-base>/davinci_crd` 
-  (e.g. http://localhost:4567/davinci_crd), selecting "Da Vinci CRD Server
+  1. Create a CRD Server v2.2.1 session by navigating to `<inferno-base>/davinci_crd`
+  (e.g., http://localhost:4567/davinci_crd), selecting "Da Vinci CRD Server
   v2.2.1 Test Suite", and clicking "Start Testing".
   1. Select the "Run Against the (g)(31) Suite" preset.
   1. Run group "1 Discovery" and confirm that all pass (NOTE: if running locally
   without TLS setup, test "1.01 CRD server uses TLS 1.2 or higher" is expected
   to fail).
   1. In another tab, create a (g)(31) session by navigating to `<inferno-base>/onc_certification_g31`,
-  (e.g. http://localhost:4567/onc_certification_g31), selecting any version of
+  (e.g., http://localhost:4567/onc_certification_g31), selecting any version of
   US Core, and clicking "Start Testing".
   1. Select the "Run Against the CRD Server Suite" preset.
   1. Run group "1.2.1 order-sign" without any changes to inputs.
@@ -155,9 +200,10 @@ end-to-end testing:
        which fails due to invalid request content sent intentionally by the
        server suite.
      - Test "1.2.1.3.08 Hook request interactions use TLS" will fail when run
-       locally without TLS. 
+       locally without TLS.
 
 ## FHIR and Terminology Validation
 
 To allow test developers control of terminology validation, the public version of
-this test kit relies on a private terminology server.
+this test kit relies on a private terminology server. The terminology server used
+is governed by the `G31_TERMINOLOGY_SERVER` environment variable.
