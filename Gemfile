@@ -7,8 +7,7 @@ gemspec
 # TODO: switch to the rubygems release
 gem 'davinci_crd_test_kit',
     git: 'https://github.com/inferno-framework/davinci-crd-test-kit.git',
-    branch: 'ID-292-test-initiated-exchange'
-gem 'us_core_test_kit', git: 'https://github.com/inferno-framework/us-core-test-kit.git',branch: 'release-1.2.0'
+    branch: 'release-v0.15.0'
 
 group :development, :test do
   gem 'debug'
