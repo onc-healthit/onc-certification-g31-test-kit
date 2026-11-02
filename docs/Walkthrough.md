@@ -34,9 +34,9 @@ to the tested system:
 
 ### (g)(31) Client Testing Basics
 
-To understand the basics of client testing for the (g)(31) tests, see the CRD Test Kit
-wiki which has details on how the [client testing paradigm](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Client-Details#client-testing-paradigm)
-applies to the CRD tests that are re-used by these (g)(31) tests.
+To understand the basics of client testing for the (g)(31) tests, see the [Client Testing pParadigm](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Client-Details#client-testing-paradigm)
+section of the CRD Test Kit wiki, which explains how testers should expect to use and interact with the
+CRD tests that are re-used by these (g)(31) tests.
 
 ### Tester-provided Responses in (g)(31)
 
