@@ -3,6 +3,8 @@ require_relative '../g31_options'
 
 module ONCCertificationG31TestKit
   class G31HookRequestEndpoint < DaVinciCRDTestKit::HookRequestEndpoint
+    error_response_format :operation_outcome
+
     def ig_version
       G31Options::CRD_V221_COMPACT
     end

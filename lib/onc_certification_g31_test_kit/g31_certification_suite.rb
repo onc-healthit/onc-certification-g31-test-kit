@@ -5,6 +5,7 @@ require_relative 'g31_crd_import'
 require_relative 'documentation_attestation_test'
 require_relative 'endpoints/g31_cds_services_discovery_handler'
 require_relative 'endpoints/g31_hook_request_endpoint'
+require_relative 'g31_requirements'
 
 module ONCCertificationG31TestKit
   class G31CertificationSuite < Inferno::TestSuite
@@ -16,9 +17,7 @@ module ONCCertificationG31TestKit
       is a testing tool for Health Level 7 (HL7®) Fast Healthcare Interoperability
       Resources (FHIR®) clients seeking to meet the requirements of the
       [Coverage Requirements Discovery criterion § 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
-      in the ONC Certification Program.
-
-      **DISCLAIMER**: this test kit is currently a draft and not ready for ONC certification purposes.
+      in the ONC Health IT Certification Program.
 
       This test suite is organized into groups that in sum cover the
       requirements within the [§ 170.315(g)(31) certification
@@ -48,12 +47,12 @@ module ONCCertificationG31TestKit
       The ONC Certification (g)(31) Coverage Requirements Discovery API Test Kit is a testing tool
       for Health Level 7 (HL7®) Fast Healthcare Interoperability Resources
       (FHIR®) clients seeking to meet the requirements of the Coverage
-      Requirements Discovery criterion § 170.315(g)(31) in the ONC Certification
-      Program.
+      Requirements Discovery criterion § 170.315(g)(31) in the ONC Health IT
+      Certification Program.
 
-      Systems may adopt later versions of standards than those named in the rule
-      as approved by the ONC Standards Version Advancement Process (SVAP). Please
-      select which approved version of US Core to use, and click 'Create Test
+      The Da Vinci Coverage Requirements Discovery FHIR IG referenced by (g)(31) requires Health IT
+      Modules to support a version of the US Core IG, but provides several options. Please
+      select which version of US Core to use, and click 'Create Test
       Session' to begin testing.
     )
 
@@ -91,24 +90,6 @@ module ONCCertificationG31TestKit
                    }
                  ]
 
-    # Kept in sync with DaVinciCRDTestKit::V221::CRDClientSuite::CRD_MESSAGE_FILTERS (lines 62-138).
-    # Copy and pasted here rather than referenced so that loading this suite does not also register the CRD suites.
-    CRD_MESSAGE_FILTERS = [
-      /\A\S+: \S+: URL value '.*' does not resolve/,
-      %r{This element is not allowed by the profile http://hl7\.org/fhir/tools/StructureDefinition/CDSHooksExtensions\|1\.1\.2},
-      /CDSHooksRequest.extension: Unrecognized property/,
-      /No definition could be found for URL value/
-    ].freeze
-
-    US_CORE_3_MESSAGE_FILTERS = CRD_MESSAGE_FILTERS +
-                                USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-
-    US_CORE_6_MESSAGE_FILTERS = CRD_MESSAGE_FILTERS +
-                                USCoreTestKit::USCoreV610::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-
-    US_CORE_7_MESSAGE_FILTERS = CRD_MESSAGE_FILTERS +
-                                USCoreTestKit::USCoreV700::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-
     requirement_sets(
       {
         identifier: '170.315(g)(31)_HTI-4',
@@ -124,10 +105,10 @@ module ONCCertificationG31TestKit
         identifier: 'hl7.fhir.us.davinci-crd_2.2.1',
         title: 'Da Vinci Coverage Requirements Discovery (CRD) v2.2.1',
         actor: 'CRD Client',
-        requirements: 'billopt-1,conf-1,conf-3,conf-6,conf-10,conf-12,conf-13,dev-3-A,dev-12,dev-26,' \
-                      'dev-28,dev-29-A,dev-30,dev-32,found-6,found-20,found-21,found-23,found-24,' \
+        requirements: 'billopt-1,conf-1,conf-3,conf-6,conf-10,conf-12,conf-13,dev-3-A,dev-12,dev-26-A,' \
+                      'dev-26-B,dev-28,dev-29-A,dev-30,dev-32,found-6,found-20,found-21,found-23,found-24,' \
                       'found-25-A,found-25-B,found-31,found-33,found-36-A,found-36-B,found-37,hook-1,' \
-                      'hook-2-A,hook-2-B,hook-3,hook-7,hook-8,hook-20,hook-21,hook-24,hook-37,hook-39,' \
+                      'hook-2-A,hook-2-B,hook-3,hook-7,hook-8,hook-20,hook-21,hook-37,hook-39,' \
                       'impl-1,prof-3,prof-4,prof-5,prof-6,prof-7,prof-8,prof-9,prof-10,prof-11,prof-12,' \
                       'prof-13,resp-14,resp-46,resp-48,resp-49,sec-1,sec-2,sec-7'
       },
@@ -170,6 +151,9 @@ module ONCCertificationG31TestKit
       }
     )
 
+    verifies_requirements '170.315(g)(31)_HTI-4@1', '170.315(g)(31)_HTI-4@2', '170.315(g)(31)_HTI-4@6',
+                          'cds-hooks_3.0.0-ballot@1', 'cds-hooks_3.0.0-ballot@15', 'cds-hooks_3.0.0-ballot@208'
+
     fhir_resource_validator required_suite_options: G31Options::US_CORE_3_REQUIREMENT do
       igs(G31Options::CRD_V221_IG_PACKAGE)
 
@@ -181,7 +165,7 @@ module ONCCertificationG31TestKit
 
       exclude_message do |message|
         ['info', 'warning'].include?(message.type) ||
-          US_CORE_3_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
+          DaVinciCRDTestKit::V221::CRDClientSuite::US_CORE_3_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
       end
     end
 
@@ -196,7 +180,7 @@ module ONCCertificationG31TestKit
 
       exclude_message do |message|
         ['info', 'warning'].include?(message.type) ||
-          US_CORE_6_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
+          DaVinciCRDTestKit::V221::CRDClientSuite::US_CORE_6_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
       end
     end
 
@@ -211,7 +195,7 @@ module ONCCertificationG31TestKit
 
       exclude_message do |message|
         ['info', 'warning'].include?(message.type) ||
-          US_CORE_7_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
+          DaVinciCRDTestKit::V221::CRDClientSuite::US_CORE_7_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
       end
     end
 
@@ -227,7 +211,7 @@ module ONCCertificationG31TestKit
 
       exclude_message do |message|
         ['info', 'warning'].include?(message.type) ||
-          CRD_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
+          DaVinciCRDTestKit::V221::CRDClientSuite::CRD_MESSAGE_FILTERS.any? { |match_template| message.message.match?(match_template) }
       end
     end
 
@@ -282,37 +266,37 @@ module ONCCertificationG31TestKit
         title 'Hook Invocation'
         description %(
           During these tests, Inferno will simulate a CRD server for the Health IT Module
-          to interact with. The Health IT Module must
+          to interact with. The Health IT Module must:
           1. Register with both of Inferno's simulated CRD servers.
           2. Discover the capabilities of Inferno's CDS services.
-          3. Make order-sign hook requests demonstrating conformance to CRD client
-             requirements across a variety of scenarios.
+          3. Make `order-sign` hook requests demonstrating conformance to CRD
+             client requirements across a variety of scenarios.
 
           Sub-group execution order notes:
           - The "Registration" group must be run first. It records the connection details
             that the remaining groups use to associate incoming hook requests with
             this test session.
-          - The "Cross Hook" group must be run after the "order-sign" group as requests
+          - The "Cross-Invocation Requirements" group must be run after the "order-sign" group as requests
             made during that group will be analyzed.
-          - Sub-groups under the "Scenarios" groups can be run at any time because
-            requests made during these tests are not included in the cross hook analysis.
+          - Sub-groups under the "Scenarios" group can be run at any time because
+            requests made during these tests are not included in the cross-invocation analysis.
         )
 
         group from: :crd_v221_client_registration, exclude_optional: true
 
         group from: :crd_v221_client_hooks do
           description %(
-            This group contains a sub-group which verifies the ability of the client to make and
-            react to responses from the order-sign required by the
+            This group contains a sub-group which verifies the ability of the Health IT Module to make and
+            react to responses from the `order-sign` hook required by the
             [Coverage Requirements Discovery criterion § 170.315(g)(31)](https://healthit.gov/test-method/provider-prior-authorization-api-coverage-requirements-discovery)
             * [order-sign](https://hl7.org/fhir/us/davinci-crd/2.2.1/en/hooks.html#order-sign)
 
             The hook-specific group follows a standard hook verification pattern:
-            1. Allow the client to make hook invocations for the tested hook, waiting until the tester indicates
-               that all desired requests have been made, then
+            1. Allow the Health IT Module to make hook invocations for the tested hook,
+               waiting until the tester indicates that all desired requests have been made, then
             2. Check the requests and their associated responses for conformance to (g)(31), CRD, and CDS Hooks
                requirements. Additionally, ask the tester to confirm that the responses were displayed
-               appropriately by the client.
+               appropriately by the Health IT Module.
 
             Inferno simulates two CRD discovery endpoints, each with an order-sign service endpoint
             but with different service ids:
@@ -366,5 +350,9 @@ module ONCCertificationG31TestKit
         test from: :g31_documentation_attestation_test
       end
     )
+
+    # Adds the (g)(31) and (j)(20) certification requirements to the imported runnables that verify
+    # them, after every group has been imported.
+    G31Requirements.apply!(self)
   end
 end

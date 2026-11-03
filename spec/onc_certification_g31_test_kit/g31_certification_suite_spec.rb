@@ -71,9 +71,24 @@ RSpec.describe ONCCertificationG31TestKit::G31CertificationSuite do
     end
   end
 
-  describe 'CRD url rewriting' do
-    let(:crd_base_url) { ONCCertificationG31TestKit::G31CRDImport.crd_base_url }
-    let(:base_url) { ONCCertificationG31TestKit::G31CRDImport.base_url }
+  describe 'CRD reference rewriting' do
+    let(:crd_import) { ONCCertificationG31TestKit::G31CRDImport }
+    let(:crd_base_url) { crd_import.crd_base_url }
+    let(:base_url) { crd_import.base_url }
+
+    # Each rewritten field on a runnable or its inputs whose text matches, as "<runnable id> <field>".
+    def text_fields_matching(pattern)
+      all_runnables.flat_map do |runnable|
+        runnable_fields = crd_import::RUNNABLE_TEXT_FIELDS.map { |field| [field, runnable.send(field)] }
+        input_fields = runnable.config.inputs.flat_map do |identifier, input|
+          crd_import::INPUT_TEXT_FIELDS.map { |field| ["input #{identifier} #{field}", input.send(field)] }
+        end
+
+        (runnable_fields + input_fields)
+          .select { |_field, text| text.to_s.match?(pattern) }
+          .map { |field, _text| "#{runnable.id} #{field}" }
+      end
+    end
 
     it 'resolves run time urls against this suite rather than the CRD client suite' do
       base_urls = imported_crd_tests.map { |test| test.new.inferno_base_url }.uniq
@@ -82,20 +97,12 @@ RSpec.describe ONCCertificationG31TestKit::G31CertificationSuite do
       expect(base_urls).to eq([base_url])
     end
 
-    it 'rewrites CRD urls baked into descriptions and input instructions' do
-      stale = all_runnables.select do |runnable|
-        [runnable.description, runnable.input_instructions].any? { |text| text.to_s.include?(crd_base_url) }
-      end
-
-      expect(stale.map(&:id)).to be_empty
+    it 'rewrites CRD urls baked into runnable and input text' do
+      expect(text_fields_matching(Regexp.new(Regexp.escape(crd_base_url)))).to be_empty
     end
 
-    it 'rewrites CRD urls baked into input descriptions' do
-      stale = all_runnables.select do |runnable|
-        runnable.config.inputs.each_value.any? { |input| input.description.to_s.include?(crd_base_url) }
-      end
-
-      expect(stale.map(&:id)).to be_empty
+    it 'refers to the tested system as the Health IT Module rather than the CRD client' do
+      expect(text_fields_matching(crd_import::CRD_CLIENT_PATTERN)).to be_empty
     end
   end
 
