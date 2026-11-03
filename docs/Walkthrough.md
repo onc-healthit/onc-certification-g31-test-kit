@@ -34,7 +34,7 @@ to the tested system:
 
 ### (g)(31) Client Testing Basics
 
-To understand the basics of client testing for the (g)(31) tests, see the [Client Testing pParadigm](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Client-Details#client-testing-paradigm)
+To understand the basics of client testing for the (g)(31) tests, see the [Client Testing Paradigm](https://github.com/inferno-framework/davinci-crd-test-kit/wiki/Client-Details#client-testing-paradigm)
 section of the CRD Test Kit wiki, which explains how testers should expect to use and interact with the
 CRD tests that are re-used by these (g)(31) tests.
 
@@ -294,7 +294,7 @@ scenario against the reference implementation, use the following steps:
 1. Select an order (any) from the "Add Order" dropdown and click the "+ Add" button to the right
    of the dropdown. This will trigger an `order-select` hook request which the (g)(31) test
    suite does not support.
-1. In Inferno, run group "1.3.1 Long-running Hook Request". When the dialog appears
+1. In Inferno, run group "1.3.1 Long-Running Hook Request". When the dialog appears
    indicating Inferno is ready
    to receive requests, return to the tab with the reference implementation.
 1. Click the "Sign all Orders" button at the bottom of the chart frame (scroll down). On the
