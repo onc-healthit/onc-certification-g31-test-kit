@@ -4,11 +4,6 @@ source "https://rubygems.org"
 
 gemspec
 
-# TODO: switch to the rubygems release
-gem 'davinci_crd_test_kit',
-    git: 'https://github.com/inferno-framework/davinci-crd-test-kit.git',
-    branch: 'release-v0.15.0'
-
 group :development, :test do
   gem 'debug'
   gem 'rubocop', '~> 1.9'

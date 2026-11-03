@@ -1,15 +1,3 @@
-GIT
-  remote: https://github.com/inferno-framework/davinci-crd-test-kit.git
-  revision: 0ff5e02497b830ba48b438eb34e1f01d90d6dcbd
-  branch: release-v0.15.0
-  specs:
-    davinci_crd_test_kit (0.15.0)
-      inferno_core (~> 1.6, >= 1.6.0)
-      jwt (~> 3.2)
-      smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
-      tls_test_kit (~> 1.0)
-      us_core_test_kit (~> 1.0)
-
 PATH
   remote: .
   specs:
@@ -63,6 +51,12 @@ GEM
       database_cleaner (~> 1.99.0)
       sequel
     date_time_precision (0.8.1)
+    davinci_crd_test_kit (0.15.0)
+      inferno_core (~> 1.6, >= 1.6.0)
+      jwt (~> 3.2)
+      smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
+      tls_test_kit (~> 1.0)
+      us_core_test_kit (~> 1.0)
     debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -433,7 +427,6 @@ PLATFORMS
 
 DEPENDENCIES
   database_cleaner-sequel (~> 1.8)
-  davinci_crd_test_kit!
   debug
   factory_bot (~> 6.1)
   onc_certification_g31_test_kit!
@@ -467,7 +460,7 @@ CHECKSUMS
   database_cleaner (1.99.0) sha256=4854c518ed36fae7ea8961993ff3cfe7c0a0434c4762ab2f0026075adbd2d1b2
   database_cleaner-sequel (1.99.0) sha256=b0cdc1f3ef84f783daefa5101ff9b7444cc2070a572cbbd7ce14e6b30090e427
   date_time_precision (0.8.1) sha256=77547764faca6c73761b9c10d7a226fd29de44ef42538c644da01680a1ee22aa
-  davinci_crd_test_kit (0.15.0)
+  davinci_crd_test_kit (0.15.0) sha256=0a590d8bc03d081f03275e2fa733e1de0157bed83c302afc05c70aaf3acb3b2b
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
   docile (1.4.1) sha256=96159be799bfa73cdb721b840e9802126e4e03dfc26863db73647204c727f21e
